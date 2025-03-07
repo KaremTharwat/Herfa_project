@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:herfa/constans.dart';
-import 'package:herfa/presentation/views/auth/general_signup.dart';
+import 'package:herfa/general_signup.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_circletogel_onboarding.dart';
 import 'package:herfa/presentation/widgets/custom_image_onboarding.dart';
-import 'package:herfa/presentation/widgets/custom_text_onboarding.dart';
+import 'package:herfa/presentation/widgets/custom_text.dart';
 
 class Onboarding3 extends StatelessWidget {
   const Onboarding3({super.key});
@@ -44,17 +44,17 @@ class Onboarding3 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    CustomTextOnboarding(
+                    CustomText(
                       text: "وفر الوقت و الجهد",
                       fontSize: 28,
                     ),
-                    CustomTextOnboarding(
+                    CustomText(
                       text:
                           " اعثر علي الفني المناسب في ثوانٍ \n ابدا رحلتك مع خدمات حرفية عالية الجودة",
                       fontSize: 14,
                       textAlign: TextAlign.center,
                     ),
-                    CustomTextOnboarding(
+                    CustomText(
                         text: "استمتع بمنزل مرتب و فعال",
                         textAlign: TextAlign.center,
                         fontSize: 24),
@@ -66,7 +66,7 @@ class Onboarding3 extends StatelessWidget {
                       child: Stack(children: [
                         Positioned(
                           top: 50,
-                          right: 75,
+                          right: 50,
                           child: CustomButton(
                             onTap: () {
                               Navigator.pushNamed(
@@ -76,8 +76,8 @@ class Onboarding3 extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          right: 190,
-                          bottom: 50,
+                          right: 220,
+                          bottom: 45,
                           child: Image.asset(
                             ImagesPathApp.image2onboarding3,
                             height: 120,

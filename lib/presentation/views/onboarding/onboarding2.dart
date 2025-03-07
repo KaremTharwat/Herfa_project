@@ -3,11 +3,11 @@ import 'package:herfa/constans.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_circletogel_onboarding.dart';
 import 'package:herfa/presentation/widgets/custom_image_onboarding.dart';
-import 'package:herfa/presentation/widgets/custom_text_onboarding.dart';
+import 'package:herfa/presentation/widgets/custom_text.dart';
 
 class Onboarding2 extends StatelessWidget {
-  const Onboarding2({super.key,required this.nextpage});
-   static final onboarding2routes = "onboarding2routes";
+  const Onboarding2({super.key, required this.nextpage});
+  static final onboarding2routes = "onboarding2routes";
   final PageController nextpage;
   @override
   Widget build(BuildContext context) {
@@ -45,16 +45,16 @@ class Onboarding2 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    CustomTextOnboarding(
+                    CustomText(
                       text: "حرفيون وفنيون متميزون",
                       fontSize: 28,
                     ),
-                    CustomTextOnboarding(
+                    CustomText(
                       text: "ضمان جودة الخدمة",
                       fontSize: 19,
                       textAlign: TextAlign.center,
                     ),
-                    CustomTextOnboarding(
+                    CustomText(
                         text:
                             "نحن نعمل مع افضل الحرفين المدربين لضمان خدمة عالية الجودة",
                         textAlign: TextAlign.center,

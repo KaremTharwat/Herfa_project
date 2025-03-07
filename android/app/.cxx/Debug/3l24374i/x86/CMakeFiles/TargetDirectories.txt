@@ -1,0 +1,2 @@
+D:/herfa/android/app/.cxx/Debug/3l24374i/x86/CMakeFiles/edit_cache.dir
+D:/herfa/android/app/.cxx/Debug/3l24374i/x86/CMakeFiles/rebuild_cache.dir

@@ -3,10 +3,10 @@ import 'package:herfa/constans.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_circletogel_onboarding.dart';
 import 'package:herfa/presentation/widgets/custom_image_onboarding.dart';
-import 'package:herfa/presentation/widgets/custom_text_onboarding.dart';
+import 'package:herfa/presentation/widgets/custom_text.dart';
 
 class Onboarding1 extends StatelessWidget {
-  const Onboarding1({super.key,required this.nextpage});
+  const Onboarding1({super.key, required this.nextpage});
   final PageController nextpage;
   @override
   Widget build(BuildContext context) {
@@ -45,18 +45,17 @@ class Onboarding1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                CustomTextOnboarding(
+                CustomText(
                   text: "شكرا لاختيارك حِرفة",
                   fontSize: 28,
                 ),
-                CustomTextOnboarding(
+                CustomText(
                   text:
                       "دعنا نساعدك في جعل منزلك افضل \nمع افضل الحرفيين المحترفين في منطقتك ",
                   fontSize: 19,
                   textAlign: TextAlign.center,
                 ),
-                CustomTextOnboarding(
-                    text: "اطلب حرفي بكل سهولة💛", fontSize: 28),
+                CustomText(text: " 💛اطلب حرفي بكل سهولة", fontSize: 28),
                 const SizedBox(
                   height: 30,
                 ),

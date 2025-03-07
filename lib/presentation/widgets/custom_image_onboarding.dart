@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:herfa/general_signup.dart';
 
 class CustomImageOnbarding extends StatelessWidget {
   const CustomImageOnbarding({
@@ -8,12 +9,15 @@ class CustomImageOnbarding extends StatelessWidget {
   final String pathImage;
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Positioned(
-          left: 290,
-          child: TextButton(
-            onPressed: () {},
+        TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, GeneralSignup.generalSignup);
+          },
+          child: Align(
+            alignment: AlignmentDirectional.bottomEnd,
             child: Text(
               "تخطي",
               style: TextStyle(color: Colors.black, fontSize: 22),
@@ -22,6 +26,8 @@ class CustomImageOnbarding extends StatelessWidget {
         ),
         Image.asset(
           pathImage,
+          width: 300,
+          height: 300,
         ),
       ],
     );

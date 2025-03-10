@@ -5,7 +5,9 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    this.obscureText = false, this.validator, this.iconButton,
+    this.obscureText = false,
+    this.validator,
+    this.iconButton,
   });
   final String hintText;
   final IconButton? iconButton;
@@ -14,11 +16,12 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
-        validator:validator ,
+        validator: validator,
         obscureText: obscureText,
         decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             filled: true,
             fillColor: Colors.white,
             hintText: hintText,

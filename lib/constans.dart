@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ColorsApp {
-  static const Color primaryColor = Color(0xffDC985C);
+  static const Color primaryColorAppbarAndCard = Color(0xffDC985C);
   static const Color buttonsColor = Color(0xff0048FF);
   static const Color textColorblack = Colors.black;
   static const Color textColorWhite = Colors.white;
+  static const Color backgroundcolorScreen = Color(0xffEAEAEA);
 }
 
 class ImagesPathApp {

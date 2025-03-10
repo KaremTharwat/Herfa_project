@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:herfa/constans.dart';
+import 'package:herfa/presentation/views/user/Auth/user_signup.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_row_divider.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
@@ -9,7 +10,7 @@ import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({super.key});
-
+    static const userLogin = "/userLogin";
   @override
   State<UserLogin> createState() => _UserLoginState();
 }
@@ -59,7 +60,7 @@ class _UserLoginState extends State<UserLogin> {
                       if (text!.isEmpty) {
                         return "الرجاء ادخال البريد الالكتروني ";
                       } else if (!RegExp(
-                              r'^[a-zA-Z0-9._%+-]+@[g-m-a-i.l]+\.[a-zA-Z]{2,}$')
+                              r'^[a-zA-Z0-9._%+-]+@[g-m-a-i.l]+\.[c-o-m]{2,}$')
                           .hasMatch(text)) {
                         return "الرجاء ادخال البريد الالكتروني بشكل صحيح";
                       }
@@ -78,6 +79,8 @@ class _UserLoginState extends State<UserLogin> {
                     validator: (text) {
                       if (text!.isEmpty) {
                         return "الرجاء ادخال كلمة المرور ";
+                      } else if (text.length < 6) {
+                        return "كلمة المرور يجب ان تكون اكثر من 6 احرف";
                       }
                       return null;
                     },
@@ -132,7 +135,9 @@ class _UserLoginState extends State<UserLogin> {
                         color: Colors.white,
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, UserSignup.userSignup);
+                          },
                           child: Text(
                             "انشاء حساب جديد",
                             style: TextStyle(

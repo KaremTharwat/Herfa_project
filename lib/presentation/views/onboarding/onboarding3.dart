@@ -19,7 +19,7 @@ class Onboarding3 extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    color: ColorsApp.primaryColor,
+                    color: ColorsApp.primaryColorAppbarAndCard,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12))),

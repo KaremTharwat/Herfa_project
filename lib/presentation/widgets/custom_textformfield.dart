@@ -7,10 +7,11 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.validator,
-    this.iconButton,
+    this.iconButton, this.textInputType,
   });
   final String hintText;
   final IconButton? iconButton;
+  final TextInputType? textInputType;
   final bool obscureText;
   final String? Function(String?)? validator;
   @override
@@ -20,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         validator: validator,
         obscureText: obscureText,
+        keyboardType: textInputType,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             filled: true,

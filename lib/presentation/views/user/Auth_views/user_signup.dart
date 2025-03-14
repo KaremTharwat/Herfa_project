@@ -148,7 +148,9 @@ class _UserSignupState extends State<UserSignup> {
                                 isLoading = false;
                                 setState(() {});
                                 if (context.mounted) {
-                                  Navigator.pushNamed(
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      HomeScreen.homeScreen, (route) => false);
+                                  Navigator.pushReplacementNamed(
                                       context, HomeScreen.homeScreen);
                                 }
                               } on FirebaseAuthException catch (e) {
@@ -165,7 +167,9 @@ class _UserSignupState extends State<UserSignup> {
                                   }
                                 }
                               } catch (e) {
-                                print(e);
+                                if (context.mounted) {
+                                  showSnackBar(context, e.toString());
+                                }
                               }
                             }
                           },

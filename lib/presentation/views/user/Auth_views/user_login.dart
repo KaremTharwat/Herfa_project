@@ -22,6 +22,7 @@ class _UserLoginState extends State<UserLogin> {
   bool isHidden = true;
   String? email;
   String? password;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +60,7 @@ class _UserLoginState extends State<UserLogin> {
                     ),
                   ),
                   CustomTextFormField(
+                    textInputType: TextInputType.emailAddress,
                     hintText: " ادخل البريد الالكتروني",
                     onChanged: (value) {
                       email = value;
@@ -117,28 +119,38 @@ class _UserLoginState extends State<UserLogin> {
                       ),
                     ),
                   ),
-                  CustomButton(
-                    text: "تسجيل الدخول",
-                    onTap: () async {
-                      if (formkey.currentState!.validate()) {
-                        try {
-                          await signInEmailAndPassword(email, password);
-                          if (context.mounted) {
-                            Navigator.pushNamed(context, "/homeScreen");
-                          }
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'invalid-credential') {
-                            if (context.mounted) {
-                              showSnackBar(context,
-                                  "البريد الالكتروني او كلمة المرور غير صحيحة");
+                  isLoading
+                      ? CircularProgressIndicator()
+                      : CustomButton(
+                          text: "تسجيل الدخول",
+                          onTap: () async {
+                            if (formkey.currentState!.validate()) {
+                              try {
+                                isLoading = true;
+                                setState(() {});
+                                await signInEmailAndPassword(email, password);
+                                isLoading = false;
+                                setState(() {});
+                                if (context.mounted) {
+                                  Navigator.pushNamed(context, "/homeScreen");
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                isLoading = false;
+                                setState(() {});
+                                if (e.code == 'invalid-credential') {
+                                  if (context.mounted) {
+                                    showSnackBar(context,
+                                        "البريد الالكتروني او كلمة المرور غير صحيحة");
+                                  }
+                                }
+                              } catch (e) {
+                                if (context.mounted) {
+                                  showSnackBar(context, e.toString());
+                                }
+                              }
                             }
-                          }
-                        } catch (e) {
-                          print(e);
-                        }
-                      }
-                    },
-                  ),
+                          },
+                        ),
                   SizedBox(
                     height: 20,
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:herfa/constans.dart';
+import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 
@@ -28,7 +29,10 @@ class GeneralSignup extends StatelessWidget {
                 color: ColorsApp.textColorWhite,
               ),
               const CustomButton(text: "تسجيل دخول كحرفي"),
-              const CustomButton(
+              CustomButton(
+                onTap: () {
+                  Navigator.pushNamed(context, UserLogin.userLogin);
+                },
                 text: "تسجيل دخول كعميل",
               )
             ],

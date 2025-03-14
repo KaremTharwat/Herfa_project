@@ -35,11 +35,11 @@ class Onboarding3 extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CustomCircleTogelOnboarding(),
-                            CustomCircleTogelOnboarding(),
                             CustomCircleTogelOnboarding(
                               color: Colors.blue,
                             ),
+                            CustomCircleTogelOnboarding(),
+                            CustomCircleTogelOnboarding(),
                           ],
                         ),
                       ),

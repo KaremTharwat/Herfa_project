@@ -7,18 +7,22 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.validator,
-    this.iconButton, this.textInputType,
+    this.iconButton, this.textInputType,this.onChanged,
+    
   });
   final String hintText;
   final IconButton? iconButton;
   final TextInputType? textInputType;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        onChanged:onChanged ,
+       // onSaved: onSaved,
         validator: validator,
         obscureText: obscureText,
         keyboardType: textInputType,

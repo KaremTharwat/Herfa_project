@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/firebase_options.dart';
 import 'package:herfa/general_signup.dart';
-import 'package:herfa/presentation/views/user/Auth/user_login.dart';
-import 'package:herfa/presentation/views/user/Auth/user_signup.dart';
+import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
+import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 import 'package:herfa/presentation/views/user/home_screen.dart';
 
 void main() async {
@@ -22,10 +23,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      locale: Locale('ar'),
+      supportedLocales: [
+        Locale('ar', ''),
+        Locale('en', ''),
+      ],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme:
           ThemeData(scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen),
-      home:
-          Directionality(textDirection: TextDirection.rtl, child: UserSignup()),
+      home: UserLogin(),
       routes: {
         GeneralSignup.generalSignup: (context) => GeneralSignup(),
         HomeScreen.homeScreen: (context) => HomeScreen(),

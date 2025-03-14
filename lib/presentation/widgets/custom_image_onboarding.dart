@@ -10,14 +10,13 @@ class CustomImageOnbarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         TextButton(
           onPressed: () {
             Navigator.pushNamed(context, GeneralSignup.generalSignup);
           },
           child: Align(
-            alignment: AlignmentDirectional.bottomEnd,
+            alignment: Alignment.centerRight,
             child: Text(
               "تخطي",
               style: TextStyle(color: Colors.black, fontSize: 22),

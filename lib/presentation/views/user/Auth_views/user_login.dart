@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:herfa/constans.dart';
-import 'package:herfa/presentation/views/user/Auth/user_signup.dart';
+import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
+import 'package:herfa/helper/showsnackbar.dart';
+import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_row_divider.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
@@ -10,7 +12,7 @@ import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({super.key});
-    static const userLogin = "/userLogin";
+  static const userLogin = "/userLogin";
   @override
   State<UserLogin> createState() => _UserLoginState();
 }
@@ -18,6 +20,8 @@ class UserLogin extends StatefulWidget {
 class _UserLoginState extends State<UserLogin> {
   final GlobalKey<FormState> formkey = GlobalKey();
   bool isHidden = true;
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +60,9 @@ class _UserLoginState extends State<UserLogin> {
                   ),
                   CustomTextFormField(
                     hintText: " ادخل البريد الالكتروني",
+                    onChanged: (value) {
+                      email = value;
+                    },
                     validator: (text) {
                       if (text!.isEmpty) {
                         return "الرجاء ادخال البريد الالكتروني ";
@@ -76,6 +83,9 @@ class _UserLoginState extends State<UserLogin> {
                     ),
                   ),
                   CustomTextFormField(
+                    onChanged: (value) {
+                      password = value;
+                    },
                     validator: (text) {
                       if (text!.isEmpty) {
                         return "الرجاء ادخال كلمة المرور ";
@@ -92,8 +102,8 @@ class _UserLoginState extends State<UserLogin> {
                           });
                         },
                         icon: isHidden
-                            ? Icon(FontAwesomeIcons.eyeSlash)
-                            : Icon(FontAwesomeIcons.eye)),
+                            ? Icon(Icons.visibility_off)
+                            : Icon(Icons.visibility)),
                     obscureText: isHidden,
                   ),
                   Align(
@@ -109,9 +119,23 @@ class _UserLoginState extends State<UserLogin> {
                   ),
                   CustomButton(
                     text: "تسجيل الدخول",
-                    onTap: () {
+                    onTap: () async {
                       if (formkey.currentState!.validate()) {
-                        Navigator.pushNamed(context, "/homeScreen");
+                        try {
+                          await signInEmailAndPassword(email, password);
+                          if (context.mounted) {
+                            Navigator.pushNamed(context, "/homeScreen");
+                          }
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'invalid-credential') {
+                            if (context.mounted) {
+                              showSnackBar(context,
+                                  "البريد الالكتروني او كلمة المرور غير صحيحة");
+                            }
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
                       }
                     },
                   ),

@@ -12,7 +12,7 @@ class Onboarding1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          child: Column(children: [
         CustomImageOnbarding(
           pathImage: ImagesPathApp.imageOnboarding1,
         ),
@@ -36,11 +36,11 @@ class Onboarding1 extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        CustomCircleTogelOnboarding(),
+                        CustomCircleTogelOnboarding(),
                         CustomCircleTogelOnboarding(
                           color: Colors.blue,
                         ),
-                        CustomCircleTogelOnboarding(),
-                        CustomCircleTogelOnboarding(),
                       ],
                     ),
                   ),
@@ -55,7 +55,10 @@ class Onboarding1 extends StatelessWidget {
                   fontSize: 19,
                   textAlign: TextAlign.center,
                 ),
-                CustomText(text: " 💛اطلب حرفي بكل سهولة", fontSize: 28),
+                CustomText(
+                  text: "اطلب حرفي بكل سهولة💛",
+                  fontSize: 28,
+                ),
                 const SizedBox(
                   height: 30,
                 ),

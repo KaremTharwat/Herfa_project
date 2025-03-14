@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:herfa/data/firebase/auth/user_auth/signupwithemailandpassword.dart';
+import 'package:herfa/helper/showsnackbar.dart';
 import 'package:herfa/helper/validation_confirmpassword.dart';
 import 'package:herfa/helper/validation_email_address.dart';
 import 'package:herfa/helper/validation_password.dart';
 import 'package:herfa/helper/validation_phone_number.dart';
 import 'package:herfa/helper/validation_username.dart';
-import 'package:herfa/presentation/views/user/Auth/custom_already_have_an_account.dart';
+import 'package:herfa/presentation/views/user/Auth_views/custom_already_have_an_account.dart';
 import 'package:herfa/presentation/views/user/home_screen.dart';
 import 'package:herfa/presentation/widgets/custom_align_textformfield.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
@@ -20,10 +24,17 @@ class UserSignup extends StatefulWidget {
   State<UserSignup> createState() => _UserSignupState();
 }
 
+bool isLoading = false;
+String? email;
+String? password;
+String? userName;
+String? phoneNumber;
+String? cityName;
+String? governorateName;
 String? selectedValue;
 dynamic confirmpassord;
 GlobalKey<FormState> formkey = GlobalKey();
-bool obscureText = true;
+bool obscureText = false;
 final List<String> listOfGovernorates = [
   "القاهرة",
   "الجيزة",
@@ -51,6 +62,7 @@ class _UserSignupState extends State<UserSignup> {
                     text: "الاسم",
                   ),
                   CustomTextFormField(
+                      onChanged: (value) => userName = value,
                       hintText: "ادخل الاسم ثلاثي هنا ",
                       validator: (value) {
                         return validationUserName(value);
@@ -60,6 +72,7 @@ class _UserSignupState extends State<UserSignup> {
                     text: "رقم الهاتف",
                   ),
                   CustomTextFormField(
+                      onChanged: (value) => phoneNumber = value,
                       textInputType: TextInputType.phone,
                       hintText: "ادخل رقم الهاتف ",
                       validator: (value) {
@@ -70,6 +83,8 @@ class _UserSignupState extends State<UserSignup> {
                     text: "البريد الالكتروني",
                   ),
                   CustomTextFormField(
+                    onChanged: (value) => email = value,
+                    //onSaved: (value) => email = value,
                     textInputType: TextInputType.emailAddress,
                     hintText: "ادخل البريد الالكتروني ",
                     validator: (value) {
@@ -82,6 +97,7 @@ class _UserSignupState extends State<UserSignup> {
                     text: "كلمة المرور",
                   ),
                   CustomTextFormField(
+                    onChanged: (value) => password = value,
                     textInputType: TextInputType.visiblePassword,
                     obscureText: obscureText,
                     iconButton: IconButton(
@@ -110,14 +126,51 @@ class _UserSignupState extends State<UserSignup> {
                         return validationconfirmPassword(value);
                       }),
                   //-----------button----------
-                  CustomButton(
-                    text: "إنشاء حساب جديد",
-                    onTap: () {
-                      if (formkey.currentState!.validate()) {
-                        Navigator.pushNamed(context, HomeScreen.homeScreen);
-                      }
-                    },
-                  ),
+                  isLoading
+                      ? CircularProgressIndicator()
+                      : CustomButton(
+                          text: "إنشاء حساب جديد",
+                          onTap: () async {
+                            if (formkey.currentState!.validate()) {
+                              try {
+                                isLoading = true;
+                                setState(() {});
+                                await signUpEmailAndPassword(email, password);
+                                FirebaseFirestore.instance
+                                    .collection('users')
+                                    .add({
+                                  "email": email,
+                                  "password": password,
+                                  "userName": userName,
+                                  "cityName": cityName,
+                                  "governorateName": governorateName,
+                                });
+                                isLoading = false;
+                                setState(() {});
+                                if (context.mounted) {
+                                  Navigator.pushNamed(
+                                      context, HomeScreen.homeScreen);
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                isLoading = false;
+                                setState(() {});
+                                if (e.code == 'weak-password') {
+                                  if (context.mounted) {
+                                    showSnackBar(context, "كلمة المرور ضعيفة");
+                                  }
+                                } else if (e.code == 'email-already-in-use') {
+                                  if (context.mounted) {
+                                    showSnackBar(context,
+                                        "هذا البريد الالكتروني مستخدم بالفعل");
+                                  }
+                                }
+                              } catch (e) {
+                                print(e);
+                              }
+                            }
+                          },
+                        ),
+
                   CustomAlreadyHaveAnAccount()
                 ],
               ),

@@ -1,4 +1,4 @@
-import 'package:herfa/presentation/views/user/Auth/user_signup.dart';
+import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 
 validationPassword(value) {
   confirmpassord = value;

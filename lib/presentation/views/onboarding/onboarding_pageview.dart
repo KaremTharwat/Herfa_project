@@ -10,6 +10,7 @@ class OnboardingPageview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
+        reverse: true,
         controller: nextpage,
         children: [
           Onboarding1(

@@ -27,7 +27,7 @@ class CustomTextFormField extends StatelessWidget {
         obscureText: obscureText,
         keyboardType: textInputType,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            contentPadding:const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             filled: true,
             fillColor: Colors.white,
             hintText: hintText,
@@ -35,7 +35,7 @@ class CustomTextFormField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder:const OutlineInputBorder(
                 borderSide: BorderSide(color: ColorsApp.buttonsColor))),
       ),
     );

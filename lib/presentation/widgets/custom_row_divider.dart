@@ -9,7 +9,7 @@ class CustomRowDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
         Expanded(
           child: Divider(

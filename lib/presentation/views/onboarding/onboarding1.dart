@@ -6,7 +6,7 @@ import 'package:herfa/presentation/widgets/custom_image_onboarding.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 
 class Onboarding1 extends StatelessWidget {
-  const Onboarding1({super.key, required this.nextpage});
+  const Onboarding1({super.key,required this.nextpage});
   final PageController nextpage;
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class Onboarding1 extends StatelessWidget {
         Expanded(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration:const BoxDecoration(
                 color: ColorsApp.primaryColorAppbarAndCard,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
@@ -30,10 +30,10 @@ class Onboarding1 extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 10, bottom: 30),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Color(0xff929292),
+                        color:const Color(0xff929292),
                         borderRadius: BorderRadius.circular(30)),
                     width: 60,
-                    child: Row(
+                    child:const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomCircleTogelOnboarding(),
@@ -45,17 +45,17 @@ class Onboarding1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                CustomText(
+               const CustomText(
                   text: "شكرا لاختيارك حِرفة",
                   fontSize: 28,
                 ),
-                CustomText(
+               const CustomText(
                   text:
                       "دعنا نساعدك في جعل منزلك افضل \nمع افضل الحرفيين المحترفين في منطقتك ",
                   fontSize: 19,
                   textAlign: TextAlign.center,
                 ),
-                CustomText(
+               const CustomText(
                   text: "اطلب حرفي بكل سهولة💛",
                   fontSize: 28,
                 ),
@@ -66,7 +66,7 @@ class Onboarding1 extends StatelessWidget {
                   text: "التالي",
                   onTap: () {
                     nextpage.animateToPage(1,
-                        duration: Duration(milliseconds: 500),
+                        duration:const Duration(milliseconds: 500),
                         curve: Curves.decelerate);
                   },
                 ),

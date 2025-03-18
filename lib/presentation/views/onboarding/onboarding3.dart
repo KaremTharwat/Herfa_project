@@ -14,11 +14,11 @@ class Onboarding3 extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            CustomImageOnbarding(pathImage: ImagesPathApp.image1onboarding3),
+           const CustomImageOnbarding(pathImage: ImagesPathApp.image1onboarding3),
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
+                decoration:const BoxDecoration(
                     color: ColorsApp.primaryColorAppbarAndCard,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
@@ -29,10 +29,10 @@ class Onboarding3 extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 10, bottom: 30),
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Color(0xff929292),
+                            color:const Color(0xff929292),
                             borderRadius: BorderRadius.circular(30)),
                         width: 60,
-                        child: Row(
+                        child:const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CustomCircleTogelOnboarding(
@@ -44,17 +44,17 @@ class Onboarding3 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    CustomText(
+                  const  CustomText(
                       text: "وفر الوقت و الجهد",
                       fontSize: 28,
                     ),
-                    CustomText(
+                   const CustomText(
                       text:
                           " اعثر علي الفني المناسب في ثوانٍ \n ابدا رحلتك مع خدمات حرفية عالية الجودة",
                       fontSize: 14,
                       textAlign: TextAlign.center,
                     ),
-                    CustomText(
+                   const CustomText(
                         text: "استمتع بمنزل مرتب و فعال",
                         textAlign: TextAlign.center,
                         fontSize: 24),

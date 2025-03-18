@@ -1,15 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:herfa/data/firebase/auth/user_auth/signupwithemailandpassword.dart';
+import 'package:herfa/data/models/user_model/user_model.dart';
+import 'package:herfa/helper/get_user_data.dart';
 import 'package:herfa/helper/showsnackbar.dart';
 import 'package:herfa/helper/validation_confirmpassword.dart';
 import 'package:herfa/helper/validation_email_address.dart';
 import 'package:herfa/helper/validation_password.dart';
 import 'package:herfa/helper/validation_phone_number.dart';
 import 'package:herfa/helper/validation_username.dart';
+import 'package:herfa/presentation/views/categories/home_screen.dart';
 import 'package:herfa/presentation/views/user/Auth_views/custom_already_have_an_account.dart';
-import 'package:herfa/presentation/views/user/home_screen.dart';
 import 'package:herfa/presentation/widgets/custom_align_textformfield.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_dropdownmenu_andtextfield.dart';
@@ -34,7 +35,7 @@ String? governorateName;
 String? selectedValue;
 dynamic confirmpassord;
 GlobalKey<FormState> formkey = GlobalKey();
-bool obscureText = false;
+bool obscureText = true;
 final List<String> listOfGovernorates = [
   "القاهرة",
   "الجيزة",
@@ -42,7 +43,6 @@ final List<String> listOfGovernorates = [
   "الشرقية",
   "المنوفية"
 ];
-
 class _UserSignupState extends State<UserSignup> {
   @override
   Widget build(BuildContext context) {
@@ -55,10 +55,10 @@ class _UserSignupState extends State<UserSignup> {
               key: formkey,
               child: Column(
                 children: [
-                  CustomText(text: "تسجيل كعميل", fontSize: 28),
-                  CustomText(text: "مرحبا! يرجي انشاء حساب جديد", fontSize: 18),
+                 const CustomText(text: "تسجيل كعميل", fontSize: 28),
+                 const CustomText(text: "مرحبا! يرجي انشاء حساب جديد", fontSize: 18),
                   //----------- username field --------------
-                  CustomAlignTextFormField(
+                const  CustomAlignTextFormField(
                     text: "الاسم",
                   ),
                   CustomTextFormField(
@@ -68,7 +68,7 @@ class _UserSignupState extends State<UserSignup> {
                         return validationUserName(value);
                       }),
                   // ---------- phone field --------------
-                  CustomAlignTextFormField(
+                const  CustomAlignTextFormField(
                     text: "رقم الهاتف",
                   ),
                   CustomTextFormField(
@@ -79,21 +79,20 @@ class _UserSignupState extends State<UserSignup> {
                         return validationPhoneNumber(value);
                       }),
                   //----------- email field -------------
-                  CustomAlignTextFormField(
+                const  CustomAlignTextFormField(
                     text: "البريد الالكتروني",
                   ),
                   CustomTextFormField(
                     onChanged: (value) => email = value,
-                    //onSaved: (value) => email = value,
                     textInputType: TextInputType.emailAddress,
                     hintText: "ادخل البريد الالكتروني ",
                     validator: (value) {
                       return validationEmailAddress(value);
                     },
                   ),
-                  CustomDropdownmenuAndtextfield(),
+               const   CustomDropdownmenuAndtextfield(),
                   //-------------- password filed --------------
-                  CustomAlignTextFormField(
+                 const CustomAlignTextFormField(
                     text: "كلمة المرور",
                   ),
                   CustomTextFormField(
@@ -107,8 +106,8 @@ class _UserSignupState extends State<UserSignup> {
                         });
                       },
                       icon: obscureText
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
                     ),
                     hintText: "ادخل كلمة المرور ",
                     validator: (value) {
@@ -116,7 +115,7 @@ class _UserSignupState extends State<UserSignup> {
                     },
                   ),
                   //---------- confirm password field ----------
-                  CustomAlignTextFormField(
+                 const CustomAlignTextFormField(
                     text: "تأكيد كلمة المرور",
                   ),
                   CustomTextFormField(
@@ -127,7 +126,7 @@ class _UserSignupState extends State<UserSignup> {
                       }),
                   //-----------button----------
                   isLoading
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : CustomButton(
                           text: "إنشاء حساب جديد",
                           onTap: () async {
@@ -135,23 +134,17 @@ class _UserSignupState extends State<UserSignup> {
                               try {
                                 isLoading = true;
                                 setState(() {});
-                                await signUpEmailAndPassword(email, password);
-                                FirebaseFirestore.instance
-                                    .collection('users')
-                                    .add({
-                                  "email": email,
-                                  "password": password,
-                                  "userName": userName,
-                                  "cityName": cityName,
-                                  "governorateName": governorateName,
-                                });
+                                await signUpEmailAndPassword(email, password,userName,cityName,governorateName);
+                                UserModel? userMode = await getUserData();
                                 isLoading = false;
                                 setState(() {});
                                 if (context.mounted) {
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      HomeScreen.homeScreen, (route) => false);
-                                  Navigator.pushReplacementNamed(
-                                      context, HomeScreen.homeScreen);
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    HomeScreen.homeScreen,
+                                    arguments: userMode,
+                                    (route) => false,
+                                  );
                                 }
                               } on FirebaseAuthException catch (e) {
                                 isLoading = false;
@@ -175,7 +168,7 @@ class _UserSignupState extends State<UserSignup> {
                           },
                         ),
 
-                  CustomAlreadyHaveAnAccount()
+                 const CustomAlreadyHaveAnAccount()
                 ],
               ),
             ),

@@ -15,7 +15,7 @@ class CustomImageOnbarding extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, GeneralSignup.generalSignup);
           },
-          child: Align(
+          child:const Align(
             alignment: Alignment.centerRight,
             child: Text(
               "تخطي",

@@ -12,7 +12,7 @@ class GeneralSignup extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(ImagesPathApp.generalLoginApp),
+            image:const AssetImage(ImagesPathApp.generalLoginApp),
             colorFilter:
                 ColorFilter.mode(Colors.black.withAlpha(120), BlendMode.darken),
             fit: BoxFit.cover),

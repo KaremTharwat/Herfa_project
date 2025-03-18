@@ -12,15 +12,15 @@ class CustomAlreadyHaveAnAccount extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomText(
+       const CustomText(
           text: "هل لديك حساب بالفعل؟",
           fontSize: 18,
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, UserLogin.userLogin);
+            Navigator.pushReplacementNamed(context, UserLogin.userLogin);
           },
-          child: Text(
+          child:const Text(
             "تسجيل دخول",
             style: TextStyle(
                 color: Color(0xff1732DF),

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
+import 'package:herfa/data/models/user_model/user_model.dart';
+import 'package:herfa/helper/get_user_data.dart';
 import 'package:herfa/helper/showsnackbar.dart';
+import 'package:herfa/presentation/views/categories/home_screen.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_row_divider.dart';
@@ -29,7 +32,7 @@ class _UserLoginState extends State<UserLogin> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(ImagesPathApp.loginPerson),
+              image: const AssetImage(ImagesPathApp.loginPerson),
               colorFilter: ColorFilter.mode(
                   Colors.black.withAlpha(120), BlendMode.darken),
               fit: BoxFit.cover)),
@@ -43,15 +46,15 @@ class _UserLoginState extends State<UserLogin> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 170, bottom: 50),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 170, bottom: 50),
                     child: CustomText(
                       text: "تسجيل الدخول كعميل",
                       fontSize: 28,
                       color: Colors.white,
                     ),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.centerRight,
                     child: CustomText(
                       text: "البريد الالكتروني",
@@ -76,7 +79,7 @@ class _UserLoginState extends State<UserLogin> {
                       return null;
                     },
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.centerRight,
                     child: CustomText(
                       text: "كلمة المرور",
@@ -104,15 +107,15 @@ class _UserLoginState extends State<UserLogin> {
                           });
                         },
                         icon: isHidden
-                            ? Icon(Icons.visibility_off)
-                            : Icon(Icons.visibility)),
+                            ? const Icon(Icons.visibility_off)
+                            : const Icon(Icons.visibility)),
                     obscureText: isHidden,
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: TextButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         "هل نسيت كلمة المرور؟",
                         style: TextStyle(
                             color: ColorsApp.textColorWhite, fontSize: 18),
@@ -120,7 +123,7 @@ class _UserLoginState extends State<UserLogin> {
                     ),
                   ),
                   isLoading
-                      ? CircularProgressIndicator()
+                      ? const CircularProgressIndicator()
                       : CustomButton(
                           text: "تسجيل الدخول",
                           onTap: () async {
@@ -129,11 +132,14 @@ class _UserLoginState extends State<UserLogin> {
                                 isLoading = true;
                                 setState(() {});
                                 await signInEmailAndPassword(email, password);
+                                UserModel? userModel = await getUserData();
+                                if (context.mounted) {
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      HomeScreen.homeScreen, (route) => false,
+                                      arguments: userModel);
+                                }
                                 isLoading = false;
                                 setState(() {});
-                                if (context.mounted) {
-                                  Navigator.pushNamed(context, "/homeScreen");
-                                }
                               } on FirebaseAuthException catch (e) {
                                 isLoading = false;
                                 setState(() {});
@@ -151,10 +157,10 @@ class _UserLoginState extends State<UserLogin> {
                             }
                           },
                         ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  CustomRowDivider(),
+                  const CustomRowDivider(),
                   GestureDetector(
                     onTap: () {},
                     child: SvgPicture.asset(
@@ -165,16 +171,17 @@ class _UserLoginState extends State<UserLogin> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomText(
+                      const CustomText(
                         text: "ليس لديك حساب؟",
                         fontSize: 20,
                         color: Colors.white,
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, UserSignup.userSignup);
+                            Navigator.pushReplacementNamed(
+                                context, UserSignup.userSignup);
                           },
-                          child: Text(
+                          child: const Text(
                             "انشاء حساب جديد",
                             style: TextStyle(
                                 color: Color(0xff1732DF),

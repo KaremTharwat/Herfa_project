@@ -4,9 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/firebase_options.dart';
 import 'package:herfa/general_signup.dart';
+import 'package:herfa/presentation/views/categories/electrical.dart';
+import 'package:herfa/presentation/views/categories/plumber.dart';
+import 'package:herfa/presentation/views/onboarding/onboarding_pageview.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
-import 'package:herfa/presentation/views/user/home_screen.dart';
+import 'package:herfa/presentation/views/categories/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +26,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      locale: Locale('ar'),
-      supportedLocales: [
+      locale:const Locale('ar'),
+      supportedLocales:const [
         Locale('ar', ''),
         Locale('en', ''),
       ],
@@ -35,12 +38,15 @@ class MyApp extends StatelessWidget {
       ],
       theme:
           ThemeData(scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen),
-      home: UserLogin(),
+      home:const UserLogin(),
       routes: {
-        GeneralSignup.generalSignup: (context) => GeneralSignup(),
-        HomeScreen.homeScreen: (context) => HomeScreen(),
-        UserSignup.userSignup: (context) => UserSignup(),
-        UserLogin.userLogin: (context) => UserLogin(),
+        GeneralSignup.generalSignup: (context) =>const GeneralSignup(),
+        OnboardingPageview.onboarding: (context) => OnboardingPageview(),
+        HomeScreen.homeScreen: (context) =>const HomeScreen(),
+        UserSignup.userSignup: (context) =>const UserSignup(),
+        UserLogin.userLogin: (context) =>const UserLogin(),
+        Electrical.electrical: (context) =>const Electrical(),
+        Plumber.plumber: (context) =>const Plumber(),
       },
     );
   }

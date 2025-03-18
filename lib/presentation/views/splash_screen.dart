@@ -13,10 +13,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => OnboardingPageview()));
-    });
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushNamedAndRemoveUntil(
+          context, OnboardingPageview.onboarding, (route) => false);
+    },);
   }
 
   @override
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Image.asset(
               "assets/images/logo.png",
             ),
-            Text(
+           const Text(
               "Herfa",
               style: TextStyle(fontSize: 50, fontFamily: "IrishGrover"),
             )

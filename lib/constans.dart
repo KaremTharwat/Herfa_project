@@ -50,16 +50,23 @@ class ImagesPathApp {
       "assets/images/Metal technician.jpg"; // فني الموتال
   static const String mobility = "assets/images/Mobility.jpeg"; //موبيلية
   static const String oilChange = "assets/images/Oil change.jpeg"; // تغير زيت
-  static const String oysterOvary = "assets/images/Oyster ovary.jpg"; //مبيض محارة
+  static const String oysterOvary =
+      "assets/images/Oyster ovary.jpg"; //مبيض محارة
   static const String plumber = "assets/images/plumber.jpeg"; //سباك
-  static const String autoElectrician = "assets/images/Auto electrician.jpeg";//كهربائي سيارات
-  static const String receiverTechnician = "assets/images/Receiver technician.jpeg"; //فني رسيفر
-  static const String refrigeratorTechnician = "assets/images/Refrigerator technician.jpeg"; // فني غسالات
+  static const String autoElectrician =
+      "assets/images/Auto electrician.jpeg"; //كهربائي سيارات
+  static const String receiverTechnician =
+      "assets/images/Receiver technician.jpeg"; //فني رسيفر
+  static const String refrigeratorTechnician =
+      "assets/images/Refrigerator technician.jpeg"; // فني غسالات
   static const String spareParts = "assets/images/spare parts.jpeg"; //قطع غيار
-  static const String upholsteryWorks = "assets/images/Upholstery works.jpeg"; // اعمال تنجيد
-  static const String various = "assets/images/Various services.jpeg"; //خدمات متنوعة
+  static const String upholsteryWorks =
+      "assets/images/Upholstery works.jpeg"; // اعمال تنجيد
+  static const String various =
+      "assets/images/Various services.jpeg"; //خدمات متنوعة
   static const String wallpaper = "assets/images/Wallpaper.jpeg"; // ورق حائط
-  static const String washingMachineTechnician = "assets/images/Washing machine technician.webp"; // فني غسالات
+  static const String washingMachineTechnician =
+      "assets/images/Washing machine technician.webp"; // فني غسالات
 }
 
 class IconsSVG {

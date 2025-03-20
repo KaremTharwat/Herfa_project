@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:herfa/business%20logic/cubits/user_cubit/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/firebase_options.dart';
 import 'package:herfa/general_signup.dart';
@@ -24,30 +26,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale:const Locale('ar'),
-      supportedLocales:const [
-        Locale('ar', ''),
-        Locale('en', ''),
-      ],
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      theme:
-          ThemeData(scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen),
-      home:const UserLogin(),
-      routes: {
-        GeneralSignup.generalSignup: (context) =>const GeneralSignup(),
-        OnboardingPageview.onboarding: (context) => OnboardingPageview(),
-        HomeScreen.homeScreen: (context) =>const HomeScreen(),
-        UserSignup.userSignup: (context) =>const UserSignup(),
-        UserLogin.userLogin: (context) =>const UserLogin(),
-        Electrical.electrical: (context) =>const Electrical(),
-        Plumber.plumber: (context) =>const Plumber(),
-      },
+    return BlocProvider(
+      create: (context) => GetDataCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale:const Locale('ar'),
+        supportedLocales:const [
+          Locale('ar', ''),
+          Locale('en', ''),
+        ],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        theme:
+            ThemeData(scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen),
+        home:const UserLogin(),
+        routes: {
+          GeneralSignup.generalSignup: (context) =>const GeneralSignup(),
+          OnboardingPageview.onboarding: (context) => OnboardingPageview(),
+          HomeScreen.homeScreen: (context) =>const HomeScreen(),
+          UserSignup.userSignup: (context) =>const UserSignup(),
+          UserLogin.userLogin: (context) =>const UserLogin(),
+          Electrical.electrical: (context) =>const Electrical(),
+          Plumber.plumber: (context) =>const Plumber(),
+        },
+      ),
     );
   }
 }

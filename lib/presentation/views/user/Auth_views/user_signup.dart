@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:herfa/business%20logic/cubits/user_cubit/get_data_cubit.dart';
 import 'package:herfa/data/firebase/auth/user_auth/signupwithemailandpassword.dart';
-import 'package:herfa/data/models/user_model/user_model.dart';
-import 'package:herfa/helper/get_user_data.dart';
 import 'package:herfa/helper/showsnackbar.dart';
 import 'package:herfa/helper/validation_confirmpassword.dart';
 import 'package:herfa/helper/validation_email_address.dart';
@@ -43,6 +43,7 @@ final List<String> listOfGovernorates = [
   "الشرقية",
   "المنوفية"
 ];
+
 class _UserSignupState extends State<UserSignup> {
   @override
   Widget build(BuildContext context) {
@@ -55,10 +56,11 @@ class _UserSignupState extends State<UserSignup> {
               key: formkey,
               child: Column(
                 children: [
-                 const CustomText(text: "تسجيل كعميل", fontSize: 28),
-                 const CustomText(text: "مرحبا! يرجي انشاء حساب جديد", fontSize: 18),
+                  const CustomText(text: "تسجيل كعميل", fontSize: 28),
+                  const CustomText(
+                      text: "مرحبا! يرجي انشاء حساب جديد", fontSize: 18),
                   //----------- username field --------------
-                const  CustomAlignTextFormField(
+                  const CustomAlignTextFormField(
                     text: "الاسم",
                   ),
                   CustomTextFormField(
@@ -68,7 +70,7 @@ class _UserSignupState extends State<UserSignup> {
                         return validationUserName(value);
                       }),
                   // ---------- phone field --------------
-                const  CustomAlignTextFormField(
+                  const CustomAlignTextFormField(
                     text: "رقم الهاتف",
                   ),
                   CustomTextFormField(
@@ -79,7 +81,7 @@ class _UserSignupState extends State<UserSignup> {
                         return validationPhoneNumber(value);
                       }),
                   //----------- email field -------------
-                const  CustomAlignTextFormField(
+                  const CustomAlignTextFormField(
                     text: "البريد الالكتروني",
                   ),
                   CustomTextFormField(
@@ -90,9 +92,9 @@ class _UserSignupState extends State<UserSignup> {
                       return validationEmailAddress(value);
                     },
                   ),
-               const   CustomDropdownmenuAndtextfield(),
+                  const CustomDropdownmenuAndtextfield(),
                   //-------------- password filed --------------
-                 const CustomAlignTextFormField(
+                  const CustomAlignTextFormField(
                     text: "كلمة المرور",
                   ),
                   CustomTextFormField(
@@ -115,7 +117,7 @@ class _UserSignupState extends State<UserSignup> {
                     },
                   ),
                   //---------- confirm password field ----------
-                 const CustomAlignTextFormField(
+                  const CustomAlignTextFormField(
                     text: "تأكيد كلمة المرور",
                   ),
                   CustomTextFormField(
@@ -134,15 +136,16 @@ class _UserSignupState extends State<UserSignup> {
                               try {
                                 isLoading = true;
                                 setState(() {});
-                                await signUpEmailAndPassword(email, password,userName,cityName,governorateName);
-                                UserModel? userMode = await getUserData();
+                                await signUpEmailAndPassword(email, password,
+                                    userName, cityName, governorateName);
                                 isLoading = false;
                                 setState(() {});
+                                await BlocProvider.of<GetDataCubit>(context)
+                                    .getDataMethodCubit();
                                 if (context.mounted) {
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,
                                     HomeScreen.homeScreen,
-                                    arguments: userMode,
                                     (route) => false,
                                   );
                                 }
@@ -168,7 +171,7 @@ class _UserSignupState extends State<UserSignup> {
                           },
                         ),
 
-                 const CustomAlreadyHaveAnAccount()
+                  const CustomAlreadyHaveAnAccount()
                 ],
               ),
             ),

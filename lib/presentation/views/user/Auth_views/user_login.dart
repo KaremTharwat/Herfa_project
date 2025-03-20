@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:herfa/business%20logic/cubits/user_cubit/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
-import 'package:herfa/data/models/user_model/user_model.dart';
-import 'package:herfa/helper/get_user_data.dart';
 import 'package:herfa/helper/showsnackbar.dart';
 import 'package:herfa/presentation/views/categories/home_screen.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
@@ -132,11 +132,11 @@ class _UserLoginState extends State<UserLogin> {
                                 isLoading = true;
                                 setState(() {});
                                 await signInEmailAndPassword(email, password);
-                                UserModel? userModel = await getUserData();
+                                await  BlocProvider.of<GetDataCubit>(context).getDataMethodCubit();
                                 if (context.mounted) {
                                   Navigator.pushNamedAndRemoveUntil(context,
                                       HomeScreen.homeScreen, (route) => false,
-                                      arguments: userModel);
+                                      );
                                 }
                                 isLoading = false;
                                 setState(() {});

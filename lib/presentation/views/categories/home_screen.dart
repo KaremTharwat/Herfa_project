@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/user_cubit/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/presentation/views/categories/plumber.dart';
 import 'package:herfa/presentation/widgets/custom_app_bar.dart';
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
         ),
         endDrawer: SizedBox(
           width: MediaQuery.of(context).size.width - 130,
-          child: const CustomDrawer(),
+          child:const CustomDrawer(),
         ),
         body: GridView(
           padding: const EdgeInsets.all(10),
@@ -28,10 +28,10 @@ class HomeScreen extends StatelessWidget {
               crossAxisCount: 2, childAspectRatio: 1.6, mainAxisSpacing: 25),
           children: [
             CustomCategoryHerfa(
-              title: "سباك",
-              image: ImagesPathApp.plumber,
-              onTap: () => Navigator.pushNamed(context, Plumber.plumber),
-            ),
+                title: "سباك",
+                image: ImagesPathApp.plumber,
+                onTap: () => Navigator.pushNamed(context, Plumber.plumber),
+                ),
             CustomCategoryHerfa(
               title: "سباك",
               image: ImagesPathApp.plumber,

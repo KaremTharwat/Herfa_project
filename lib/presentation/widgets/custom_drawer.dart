@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/user_cubit/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/change_mode_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
+import 'package:herfa/business%20logic/states/change_mode_state.dart';
+import 'package:herfa/constans.dart';
 import 'package:herfa/presentation/views/categories/home_screen.dart';
 import 'package:herfa/presentation/widgets/custom_row_drawer.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
@@ -9,7 +12,6 @@ class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,9 +26,9 @@ class CustomDrawer extends StatelessWidget {
                 },
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
-                icon: const Icon(
+                icon: Icon(
                   Icons.close,
-                  color: Colors.black,
+                  color: Theme.of(context).iconTheme.color,
                   weight: 700,
                   size: 40,
                 )),
@@ -59,7 +61,43 @@ class CustomDrawer extends StatelessWidget {
               text: "سجل المعاملات",
               iconData: Icons.history,
             ),
-            const CustomRowDrawer(
+            CustomRowDrawer(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) =>
+                    BlocBuilder<ChangeModeCubit, ChangeModeState>(
+                    builder: (context, state) {
+                      return AlertDialog(
+                          backgroundColor: ColorsApp.primaryColorAppbarAndCard,
+                          actions: <Widget>[
+                            Center(
+                              child: Transform.scale(
+                                scaleY: 2,
+                                scaleX: 2.2,
+                                child: SizedBox(
+                                  height: 150,
+                                  child: Switch(
+                                    activeColor: Colors.white,
+                                    activeTrackColor: Colors.black,
+                                    inactiveTrackColor: Colors.white,
+                                    inactiveThumbColor: Colors.black,
+                                    value: BlocProvider.of<ChangeModeCubit>(
+                                            context)
+                                        .isDark,
+                                    onChanged: (value) {
+                                      BlocProvider.of<ChangeModeCubit>(context)
+                                          .changeMode(value);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            )
+                          ]);
+                    },
+                  ),
+                );
+              },
               text: "وضع النظام",
               iconData: Icons.dark_mode,
             ),

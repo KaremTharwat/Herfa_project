@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:herfa/business%20logic/cubits/user_cubit/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
@@ -107,8 +107,12 @@ class _UserLoginState extends State<UserLogin> {
                           });
                         },
                         icon: isHidden
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility)),
+                            ? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.black,
+                              )
+                            : const Icon(Icons.visibility,
+                                color: Colors.black)),
                     obscureText: isHidden,
                   ),
                   Align(
@@ -132,11 +136,14 @@ class _UserLoginState extends State<UserLogin> {
                                 isLoading = true;
                                 setState(() {});
                                 await signInEmailAndPassword(email, password);
-                                await  BlocProvider.of<GetDataCubit>(context).getDataMethodCubit();
+                                await BlocProvider.of<GetDataCubit>(context)
+                                    .getDataMethodCubit();
                                 if (context.mounted) {
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      HomeScreen.homeScreen, (route) => false,
-                                      );
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    HomeScreen.homeScreen,
+                                    (route) => false,
+                                  );
                                 }
                                 isLoading = false;
                                 setState(() {});

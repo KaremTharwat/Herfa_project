@@ -4,9 +4,9 @@ import 'package:herfa/presentation/widgets/custom_text.dart';
 class CustomCategoryHerfa extends StatelessWidget {
   const CustomCategoryHerfa({
     super.key,
-   required this.onTap,
-   required this.title,
-   required this.image,
+    required this.onTap,
+    required this.title,
+    required this.image,
   });
   final Function() onTap;
   final String title;
@@ -21,7 +21,7 @@ class CustomCategoryHerfa extends StatelessWidget {
             height: 110,
             width: 150,
             child: ClipRRect(
-              borderRadius:const BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(12), topRight: Radius.circular(12)),
               child: Image.asset(
                 image,
@@ -32,7 +32,7 @@ class CustomCategoryHerfa extends StatelessWidget {
           Positioned(
             bottom: 0,
             child: Container(
-              decoration:const BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12)),
@@ -42,6 +42,7 @@ class CustomCategoryHerfa extends StatelessWidget {
               width: 150,
               child: Center(
                 child: CustomText(
+                  color: Colors.black87,
                   text: title,
                   fontSize: 24,
                 ),

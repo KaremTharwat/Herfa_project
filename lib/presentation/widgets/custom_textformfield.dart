@@ -7,8 +7,9 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.validator,
-    this.iconButton, this.textInputType,this.onChanged,
-    
+    this.iconButton,
+    this.textInputType,
+    this.onChanged,
   });
   final String hintText;
   final IconButton? iconButton;
@@ -21,13 +22,18 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
-        onChanged:onChanged ,
-       // onSaved: onSaved,
+        style: const TextStyle(color: ColorsApp.textColorblack),
+        cursorColor: ColorsApp.textColorblack,
+        onChanged: onChanged,
         validator: validator,
         obscureText: obscureText,
         keyboardType: textInputType,
         decoration: InputDecoration(
-            contentPadding:const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            hintStyle: const TextStyle(
+              color: Colors.black,
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             filled: true,
             fillColor: Colors.white,
             hintText: hintText,
@@ -35,7 +41,7 @@ class CustomTextFormField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            focusedBorder:const OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: ColorsApp.buttonsColor))),
       ),
     );

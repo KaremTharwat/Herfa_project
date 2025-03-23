@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/user_cubit/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
 import 'package:herfa/data/firebase/auth/user_auth/signupwithemailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
 import 'package:herfa/helper/validation_confirmpassword.dart';

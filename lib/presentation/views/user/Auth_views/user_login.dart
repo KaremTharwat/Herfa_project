@@ -6,11 +6,13 @@ import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
+import 'package:herfa/helper/signin_with_google.dart';
 import 'package:herfa/presentation/views/categories/home_screen.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_row_divider.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
+import 'package:herfa/presentation/widgets/custom_text_button.dart';
 import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 
 class UserLogin extends StatefulWidget {
@@ -169,7 +171,10 @@ class _UserLoginState extends State<UserLogin> {
                   ),
                   const CustomRowDivider(),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      await signInWithGoogle();
+                      print("ssdsd");
+                    },
                     child: SvgPicture.asset(
                       "assets/icons/google.svg",
                       width: 35,
@@ -183,18 +188,13 @@ class _UserLoginState extends State<UserLogin> {
                         fontSize: 20,
                         color: Colors.white,
                       ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, UserSignup.userSignup);
-                          },
-                          child: const Text(
-                            "انشاء حساب جديد",
-                            style: TextStyle(
-                                color: Color(0xff1732DF),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ))
+                      CustomTextButton(
+                        text: "انشاء حساب جديد",
+                        color: const Color(0xff1732DF),
+                        onPressed: () {
+                          Navigator.pushNamed(context, UserSignup.userSignup);
+                        },
+                      )
                     ],
                   )
                 ],

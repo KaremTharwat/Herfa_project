@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/change_mode_cubit.dart';
 import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
-import 'package:herfa/business%20logic/states/change_mode_state.dart';
 import 'package:herfa/constans.dart';
+import 'package:herfa/general_signup.dart';
+import 'package:herfa/helper/sign_out_auth.dart';
 import 'package:herfa/presentation/views/categories/home_screen.dart';
+import 'package:herfa/presentation/widgets/Custom_switch.dart';
 import 'package:herfa/presentation/widgets/custom_row_drawer.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
+import 'package:herfa/presentation/widgets/custom_text_button.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -65,37 +67,20 @@ class CustomDrawer extends StatelessWidget {
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (context) =>
-                    BlocBuilder<ChangeModeCubit, ChangeModeState>(
-                    builder: (context, state) {
-                      return AlertDialog(
-                          backgroundColor: ColorsApp.primaryColorAppbarAndCard,
-                          actions: <Widget>[
-                            Center(
-                              child: Transform.scale(
-                                scaleY: 2,
-                                scaleX: 2.2,
-                                child: SizedBox(
-                                  height: 150,
-                                  child: Switch(
-                                    activeColor: Colors.white,
-                                    activeTrackColor: Colors.black,
-                                    inactiveTrackColor: Colors.white,
-                                    inactiveThumbColor: Colors.black,
-                                    value: BlocProvider.of<ChangeModeCubit>(
-                                            context)
-                                        .isDark,
-                                    onChanged: (value) {
-                                      BlocProvider.of<ChangeModeCubit>(context)
-                                          .changeMode(value);
-                                    },
-                                  ),
-                                ),
-                              ),
-                            )
-                          ]);
-                    },
-                  ),
+                  builder: (context) => AlertDialog(
+                      backgroundColor: ColorsApp.primaryColorAppbarAndCard,
+                      actions: <Widget>[
+                        Center(
+                          child: Transform.scale(
+                            scaleY: 2,
+                            scaleX: 2.2,
+                            child: const SizedBox(
+                              height: 150,
+                              child: CustomSwitchDarkAndLightMode(),
+                            ),
+                          ),
+                        )
+                      ]),
                 );
               },
               text: "وضع النظام",
@@ -105,9 +90,37 @@ class CustomDrawer extends StatelessWidget {
               text: "الاعدادات",
               iconData: Icons.settings,
             ),
-            const CustomRowDrawer(
+            CustomRowDrawer(
               text: "تسجيل خروج",
               iconData: Icons.login,
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          content: const CustomText(
+                              text: "هل ترغب في تسجيل الخروج؟", fontSize: 16),
+                          actions: [
+                            CustomTextButton(
+                              text: "تسجيل الخروج",
+                              color: Colors.red,
+                              onPressed: () async {
+                                await userSignup();
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    GeneralSignup.generalSignup,
+                                    (route)=>false);
+                              },
+                            ),
+                            CustomTextButton(
+                              text: "الغاء",
+                              color: Colors.blueAccent,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            )
+                          ],
+                        ));
+              },
             ),
           ],
         ),

@@ -31,7 +31,7 @@ class ImagesPathApp {
   static const String electrical = "assets/images/electrical.jpeg"; //كهربائي
   static const String carPaint = "assets/images/Car paint.jpeg"; //طلاء السيارات
   static const String ceramicWorks =
-      "assets/images/ceramic works.jpeg"; //اعمال سيراميك
+      "assets/images/Ceramic-ceramice.jpg"; //اعمال سيراميك
   static const String coachAndBatteries =
       "assets/images/Coach and batteries.jpeg"; //كاوتش و بطاريات
   static const String constructionWork =
@@ -44,10 +44,9 @@ class ImagesPathApp {
   static const String gasStoveTechnician =
       "assets/images/Gas stove technician.jpeg"; //فني بوتجازات
   static const String joiner = "assets/images/joiner.jpeg"; // نجار
-  static const String mechanical =
-      "assets/images/mechanical.jpeg.jpeg"; //ميكانيكي
+  static const String mechanical = "assets/images/mechanical.jpg"; //ميكانيكي
   static const String metalTechnician =
-      "assets/images/Metal technician.jpg"; // فني الموتال
+      "assets/images/Metal technician.jpg"; // فني الوميتال
   static const String mobility = "assets/images/Mobility.jpeg"; //موبيلية
   static const String oilChange = "assets/images/Oil change.jpeg"; // تغير زيت
   static const String oysterOvary =

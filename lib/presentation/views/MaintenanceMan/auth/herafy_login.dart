@@ -1,69 +1,63 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
-import 'package:herfa/helper/signin_with_google.dart';
-import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
-import 'package:herfa/presentation/views/user/home_screen.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/profile_herafy.dart';
+import 'package:herfa/presentation/widgets/custom_already_have_an_account.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
-import 'package:herfa/presentation/widgets/custom_row_divider.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
-import 'package:herfa/presentation/widgets/custom_text_button.dart';
 import 'package:herfa/presentation/widgets/custom_textformfield.dart';
-import 'package:herfa/reset_password.dart';
 
-class UserLogin extends StatefulWidget {
-  const UserLogin({super.key});
-  static const routName = "/userLogin";
+class HerafyLogin extends StatefulWidget {
+  const HerafyLogin({super.key});
+
   @override
-  State<UserLogin> createState() => _UserLoginState();
+  State<HerafyLogin> createState() => _HerafyLoginState();
 }
 
-class _UserLoginState extends State<UserLogin> {
-  final GlobalKey<FormState> formkey = GlobalKey();
-  bool isHidden = true;
-  String? email;
-  String? password;
-  bool isLoading = false;
+final GlobalKey<FormState> formkey = GlobalKey();
+bool isHidden = true;
+String? email;
+String? password;
+bool isLoading = false;
 
+class _HerafyLoginState extends State<HerafyLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: const AssetImage(ImagesPathApp.loginPerson),
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withAlpha(120), BlendMode.darken),
-              fit: BoxFit.cover)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
+        image: DecorationImage(
+            image: const AssetImage(ImagesPathApp.loginHerafy),
+            colorFilter:
+                ColorFilter.mode(Colors.black.withAlpha(140), BlendMode.darken),
+            fit: BoxFit.fill),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
             child: Form(
               key: formkey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(top: 170, bottom: 50),
                     child: CustomText(
-                      text: "تسجيل الدخول كعميل",
-                      fontSize: 28,
-                      color: Colors.white,
-                    ),
+                        text: "تسجيل الدخول كحرفي",
+                        fontSize: 24,
+                        color: ColorsApp.textColorWhite),
                   ),
                   const Align(
                     alignment: Alignment.centerRight,
                     child: CustomText(
-                      text: "البريد الالكتروني",
-                      fontSize: 18,
-                      color: ColorsApp.textColorWhite,
-                    ),
+                        text: "البريد الإلكتروني",
+                        fontSize: 22,
+                        color: ColorsApp.textColorWhite),
                   ),
                   CustomTextFormField(
                     textInputType: TextInputType.emailAddress,
@@ -82,13 +76,13 @@ class _UserLoginState extends State<UserLogin> {
                       return null;
                     },
                   ),
+                  const SizedBox(height: 20),
                   const Align(
                     alignment: Alignment.centerRight,
                     child: CustomText(
-                      text: "كلمة المرور",
-                      fontSize: 18,
-                      color: ColorsApp.textColorWhite,
-                    ),
+                        text: 'كلمة المرور',
+                        fontSize: 22,
+                        color: ColorsApp.textColorWhite),
                   ),
                   CustomTextFormField(
                     onChanged: (value) {
@@ -121,15 +115,16 @@ class _UserLoginState extends State<UserLogin> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, ResetPassword.routName);
-                      },
+                      onPressed: () {},
                       child: const Text(
                         "هل نسيت كلمة المرور؟",
                         style: TextStyle(
                             color: ColorsApp.textColorWhite, fontSize: 18),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   isLoading
                       ? const CircularProgressIndicator()
@@ -146,7 +141,7 @@ class _UserLoginState extends State<UserLogin> {
                                 if (context.mounted) {
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,
-                                    HomeScreen.routName,
+                                    ProfileHerafy.routName,
                                     (route) => false,
                                   );
                                 }
@@ -164,41 +159,18 @@ class _UserLoginState extends State<UserLogin> {
                               } catch (e) {
                                 if (context.mounted) {
                                   showSnackBar(context, e.toString());
+                                  print(e.toString());
+                                  isLoading = false;
+                                  setState(() {});
                                 }
                               }
                             }
                           },
                         ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
-                  const CustomRowDivider(),
-                  GestureDetector(
-                    onTap: () async {
-                      await signInWithGoogle();
-                    },
-                    child: SvgPicture.asset(
-                      "assets/icons/google.svg",
-                      width: 35,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CustomText(
-                        text: "ليس لديك حساب؟",
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                      CustomTextButton(
-                        text: "انشاء حساب جديد",
-                        color: const Color(0xff1732DF),
-                        onPressed: () {
-                          Navigator.pushNamed(context, UserSignup.routName);
-                        },
-                      )
-                    ],
-                  )
+                  const CustomAlreadyHaveAnAccount()
                 ],
               ),
             ),

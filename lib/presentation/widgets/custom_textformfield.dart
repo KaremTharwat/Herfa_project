@@ -9,7 +9,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.iconButton,
     this.textInputType,
-    this.onChanged,
+    this.onChanged, this.onFieldSubmitted,
   });
   final String hintText;
   final IconButton? iconButton;
@@ -17,11 +17,13 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        onFieldSubmitted:onFieldSubmitted,
         style: const TextStyle(color: ColorsApp.textColorblack),
         cursorColor: ColorsApp.textColorblack,
         onChanged: onChanged,

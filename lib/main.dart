@@ -8,12 +8,13 @@ import 'package:herfa/business%20logic/states/change_mode_state.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/firebase_options.dart';
 import 'package:herfa/general_signup.dart';
-import 'package:herfa/presentation/views/categories/electrical.dart';
-import 'package:herfa/presentation/views/categories/home_screen.dart';
-import 'package:herfa/presentation/views/categories/plumber.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/categories/list_of_herafy.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/profile_herafy.dart';
 import 'package:herfa/presentation/views/onboarding/onboarding_pageview.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
+import 'package:herfa/presentation/views/user/home_screen.dart';
+import 'package:herfa/reset_password.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,15 +53,16 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen,
           ),
-          home: const UserLogin(),
+          home: const ResetPassword(),
           routes: {
-            GeneralSignup.generalSignup: (context) => const GeneralSignup(),
-            OnboardingPageview.onboarding: (context) => OnboardingPageview(),
-            HomeScreen.homeScreen: (context) => const HomeScreen(),
-            UserSignup.userSignup: (context) => const UserSignup(),
-            UserLogin.userLogin: (context) => const UserLogin(),
-            Electrical.electrical: (context) => const Electrical(),
-            Plumber.plumber: (context) => const Plumber(),
+            GeneralSignup.routName: (context) => const GeneralSignup(),
+            OnboardingPageview.routName: (context) => OnboardingPageview(),
+            HomeScreen.routName: (context) => HomeScreen(),
+            UserSignup.routName: (context) => const UserSignup(),
+            UserLogin.routName: (context) => const UserLogin(),
+            ListOfHerafy.routName: (context) => const ListOfHerafy(),
+            ProfileHerafy.routName: (context) => const ProfileHerafy(),
+            ResetPassword.routName: (context) => const ResetPassword(),
           },
         );
       },

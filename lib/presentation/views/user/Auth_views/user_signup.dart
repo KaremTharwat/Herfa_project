@@ -9,8 +9,8 @@ import 'package:herfa/helper/validation_email_address.dart';
 import 'package:herfa/helper/validation_password.dart';
 import 'package:herfa/helper/validation_phone_number.dart';
 import 'package:herfa/helper/validation_username.dart';
-import 'package:herfa/presentation/views/categories/home_screen.dart';
-import 'package:herfa/presentation/views/user/Auth_views/custom_already_have_an_account.dart';
+import 'package:herfa/presentation/views/user/home_screen.dart';
+import 'package:herfa/presentation/widgets/custom_already_have_an_account.dart';
 import 'package:herfa/presentation/widgets/custom_align_textformfield.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_dropdownmenu_andtextfield.dart';
@@ -19,7 +19,7 @@ import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 
 class UserSignup extends StatefulWidget {
   const UserSignup({super.key});
-  static const userSignup = "/user-signup";
+  static const routName = "/user-signup";
 
   @override
   State<UserSignup> createState() => _UserSignupState();
@@ -145,7 +145,7 @@ class _UserSignupState extends State<UserSignup> {
                                 if (context.mounted) {
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,
-                                    HomeScreen.homeScreen,
+                                    HomeScreen.routName,
                                     (route) => false,
                                   );
                                 }

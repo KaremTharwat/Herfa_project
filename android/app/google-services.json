@@ -12,7 +12,20 @@
           "package_name": "com.example.herfa"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "124678530522-2d039qkfqi11qc76apl1i0ak2dgkl330.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.herfa",
+            "certificate_hash": "ed29fd03a18d09d0aa2480fe855e247d2df87179"
+          }
+        },
+        {
+          "client_id": "124678530522-brrgaokhe7hq9t5j1vgm0iesiivei6dn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAhRQnRaIxbLzkAP6R0TqjNGv_GuIciiU4"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124678530522-brrgaokhe7hq9t5j1vgm0iesiivei6dn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "124678530522-qg3mm4re0su4tl4m0jsm2df5fpuujtoc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.herfa"
+              }
+            }
+          ]
         }
       }
     }

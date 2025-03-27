@@ -70,7 +70,7 @@ class Onboarding3 extends StatelessWidget {
                           child: CustomButton(
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, GeneralSignup.generalSignup);
+                                  context, GeneralSignup.routName);
                             },
                             text: "أبدأ الأن",
                           ),

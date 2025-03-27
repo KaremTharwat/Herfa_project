@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart ';
 
 Future<UserCredential?> signInWithGoogle() async {
-  try {
+
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
       return null;
@@ -16,7 +16,5 @@ Future<UserCredential?> signInWithGoogle() async {
     );
 
     return await FirebaseAuth.instance.signInWithCredential(credential);
-  } catch (e) {
-    return null;
-  }
+
 }

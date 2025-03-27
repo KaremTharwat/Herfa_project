@@ -6,7 +6,7 @@ import 'package:herfa/presentation/widgets/custom_text.dart';
 
 class GeneralSignup extends StatelessWidget {
   const GeneralSignup({super.key});
-  static const generalSignup = "generalSignup";
+  static const routName = "generalSignup";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +31,7 @@ class GeneralSignup extends StatelessWidget {
               const CustomButton(text: "تسجيل دخول كحرفي"),
               CustomButton(
                 onTap: () {
-                  Navigator.pushNamed(context, UserLogin.userLogin);
+                  Navigator.pushNamed(context, UserLogin.routName);
                 },
                 text: "تسجيل دخول كعميل",
               )

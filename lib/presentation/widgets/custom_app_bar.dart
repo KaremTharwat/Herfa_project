@@ -10,9 +10,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.centerTitle = true,
+    this.showIconButton = true,
   });
   final String title;
   final bool centerTitle;
+  final bool showIconButton;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetDataCubit, GetDataState>(
@@ -25,6 +27,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             fontSize: 24,
           ),
           centerTitle: centerTitle,
+          leading: showIconButton
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back))
+              : null,
         );
       },
     );

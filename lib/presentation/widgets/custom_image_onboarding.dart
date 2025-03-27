@@ -13,7 +13,7 @@ class CustomImageOnbarding extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, GeneralSignup.generalSignup);
+            Navigator.pushNamed(context, GeneralSignup.routName);
           },
           child:const Align(
             alignment: Alignment.centerRight,

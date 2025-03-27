@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:herfa/constans.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 
@@ -12,15 +13,16 @@ class CustomAlreadyHaveAnAccount extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-       const CustomText(
+        const CustomText(
           text: "هل لديك حساب بالفعل؟",
           fontSize: 18,
+          color: ColorsApp.textColorblack,
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushReplacementNamed(context, UserLogin.userLogin);
+            Navigator.pushReplacementNamed(context, UserLogin.routName);
           },
-          child:const Text(
+          child: const Text(
             "تسجيل دخول",
             style: TextStyle(
                 color: Color(0xff1732DF),

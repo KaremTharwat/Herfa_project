@@ -6,7 +6,7 @@ import 'package:herfa/presentation/views/onboarding/onboarding3.dart';
 class OnboardingPageview extends StatelessWidget {
   OnboardingPageview({super.key});
   final PageController nextpage = PageController();
-   static const String onboarding = "/onboarding";
+   static const String routName= "/onboarding";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

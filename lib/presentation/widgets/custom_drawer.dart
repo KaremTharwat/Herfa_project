@@ -4,7 +4,7 @@ import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/general_signup.dart';
 import 'package:herfa/helper/sign_out_auth.dart';
-import 'package:herfa/presentation/views/categories/home_screen.dart';
+import 'package:herfa/presentation/views/user/home_screen.dart';
 import 'package:herfa/presentation/widgets/Custom_switch.dart';
 import 'package:herfa/presentation/widgets/custom_row_drawer.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
@@ -53,7 +53,7 @@ class CustomDrawer extends StatelessWidget {
             CustomRowDrawer(
               text: "الصفحة الرئيسية",
               iconData: Icons.home,
-              onTap: () => Navigator.pushNamed(context, HomeScreen.homeScreen),
+              onTap: () => Navigator.pushNamed(context, HomeScreen.routName),
             ),
             const CustomRowDrawer(
               text: "اشعار",
@@ -104,10 +104,10 @@ class CustomDrawer extends StatelessWidget {
                               text: "تسجيل الخروج",
                               color: Colors.red,
                               onPressed: () async {
-                                await userSignup();
+                                await userSignOut();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,
-                                    GeneralSignup.generalSignup,
+                                    GeneralSignup.routName,
                                     (route)=>false);
                               },
                             ),

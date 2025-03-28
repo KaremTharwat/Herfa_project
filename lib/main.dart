@@ -8,6 +8,8 @@ import 'package:herfa/business%20logic/states/change_mode_state.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/firebase_options.dart';
 import 'package:herfa/general_signup.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_login.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_singup.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/categories/list_of_herafy.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/profile_herafy.dart';
 import 'package:herfa/presentation/views/onboarding/onboarding_pageview.dart';
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen,
           ),
-          home: const ResetPassword(),
+          home: const HerafySignUp(),
           routes: {
             GeneralSignup.routName: (context) => const GeneralSignup(),
             OnboardingPageview.routName: (context) => OnboardingPageview(),
@@ -63,6 +65,8 @@ class MyApp extends StatelessWidget {
             ListOfHerafy.routName: (context) => const ListOfHerafy(),
             ProfileHerafy.routName: (context) => const ProfileHerafy(),
             ResetPassword.routName: (context) => const ResetPassword(),
+            HerafyLogin.routName: (context) => const HerafyLogin(),
+            HerafySignUp.routName: (context) => const HerafySignUp(),
           },
         );
       },

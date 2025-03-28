@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<void> signUpEmailAndPasswordUsers(
-    email, password, userName, cityName, governorateName) async {
+Future<void> signUpEmailAndPasswordHerafy(
+    email,age , password, herafyName,major,) async {
   UserCredential userCredential =
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
     email: email!,
     password: password!,
   );
   await FirebaseFirestore.instance
-      .collection('users')
+      .collection('herafy')
       .doc(userCredential.user!.uid)
       .set({
     "email": email,
-    "userName": userName,
-    "cityName": cityName,
-    "governorateName": governorateName,
+    "herafyName": herafyName,
+    "age": age,
+    "major": major,
   });
 }

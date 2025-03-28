@@ -10,6 +10,7 @@ import 'package:herfa/helper/signin_with_google.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 import 'package:herfa/presentation/views/user/home_screen.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
+import 'package:herfa/presentation/widgets/custom_doyouhavean_account.dart';
 import 'package:herfa/presentation/widgets/custom_row_divider.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 import 'package:herfa/presentation/widgets/custom_text_button.dart';
@@ -182,23 +183,7 @@ class _UserLoginState extends State<UserLogin> {
                       width: 35,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CustomText(
-                        text: "ليس لديك حساب؟",
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                      CustomTextButton(
-                        text: "انشاء حساب جديد",
-                        color: const Color(0xff1732DF),
-                        onPressed: () {
-                          Navigator.pushNamed(context, UserSignup.routName);
-                        },
-                      )
-                    ],
-                  )
+                 const CustomDoYouNotHaveAnAccount(routName: UserSignup.routName,)
                 ],
               ),
             ),
@@ -208,3 +193,4 @@ class _UserLoginState extends State<UserLogin> {
     );
   }
 }
+

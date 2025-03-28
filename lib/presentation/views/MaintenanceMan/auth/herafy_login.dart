@@ -5,15 +5,16 @@ import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_singup.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/profile_herafy.dart';
-import 'package:herfa/presentation/widgets/custom_already_have_an_account.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
+import 'package:herfa/presentation/widgets/custom_doyouhavean_account.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 
 class HerafyLogin extends StatefulWidget {
   const HerafyLogin({super.key});
-
+  static const routName = "HerafyLogin";
   @override
   State<HerafyLogin> createState() => _HerafyLoginState();
 }
@@ -170,7 +171,8 @@ class _HerafyLoginState extends State<HerafyLogin> {
                   const SizedBox(
                     height: 30,
                   ),
-                  const CustomAlreadyHaveAnAccount()
+                  const CustomDoYouNotHaveAnAccount(
+                      routName: HerafySignUp.routName)
                 ],
               ),
             ),

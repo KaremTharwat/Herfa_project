@@ -10,10 +10,10 @@ import 'package:herfa/helper/validation_password.dart';
 import 'package:herfa/helper/validation_phone_number.dart';
 import 'package:herfa/helper/validation_username.dart';
 import 'package:herfa/presentation/views/user/home_screen.dart';
-import 'package:herfa/presentation/widgets/custom_already_have_an_account.dart';
 import 'package:herfa/presentation/widgets/custom_align_textformfield.dart';
+import 'package:herfa/presentation/widgets/custom_already_have_an_account.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
-import 'package:herfa/presentation/widgets/custom_dropdownmenu_andtextfield.dart';
+import 'package:herfa/presentation/widgets/custom_dropdownmenu.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 
@@ -32,17 +32,9 @@ String? userName;
 String? phoneNumber;
 String? cityName;
 String? governorateName;
-String? selectedValue;
 dynamic confirmpassord;
 GlobalKey<FormState> formkey = GlobalKey();
 bool obscureText = true;
-final List<String> listOfGovernorates = [
-  "القاهرة",
-  "الجيزة",
-  "القليوبية",
-  "الشرقية",
-  "المنوفية"
-];
 
 class _UserSignupState extends State<UserSignup> {
   @override
@@ -92,7 +84,20 @@ class _UserSignupState extends State<UserSignup> {
                       return validationEmailAddress(value);
                     },
                   ),
-                  const CustomDropdownmenuAndtextfield(),
+                  Row(
+                    children: [
+                      const CustomDropdownMenuGovernorates(
+                        title: "اختر المحافظة",
+                      ),
+                      Expanded(
+                        child: CustomTextFormField(
+                            onChanged: (value) => cityName = value,
+                            validator: (value) => validationUserName(value),
+                            hintText: "ادخل اسم المدينة التابعة للمحافظة"),
+                      ),
+                    ],
+                  ),
+
                   //-------------- password filed --------------
                   const CustomAlignTextFormField(
                     text: "كلمة المرور",
@@ -136,8 +141,12 @@ class _UserSignupState extends State<UserSignup> {
                               try {
                                 isLoading = true;
                                 setState(() {});
-                                await signUpEmailAndPassword(email, password,
-                                    userName, cityName, governorateName);
+                                await signUpEmailAndPasswordUsers(
+                                    email,
+                                    password,
+                                    userName,
+                                    cityName,
+                                    governorateName);
                                 isLoading = false;
                                 setState(() {});
                                 await BlocProvider.of<GetDataCubit>(context)
@@ -170,8 +179,9 @@ class _UserSignupState extends State<UserSignup> {
                             }
                           },
                         ),
-
-                  const CustomAlreadyHaveAnAccount()
+                  const CustomAlreadyHaveAnAccount(
+                    routName: UserSignup.routName,
+                  )
                 ],
               ),
             ),

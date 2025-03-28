@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:herfa/constans.dart';
-import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 
 class CustomAlreadyHaveAnAccount extends StatelessWidget {
   const CustomAlreadyHaveAnAccount({
-    super.key,
+    super.key,required this.routName,
   });
-
+  final String routName;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -19,9 +18,8 @@ class CustomAlreadyHaveAnAccount extends StatelessWidget {
           color: ColorsApp.textColorblack,
         ),
         TextButton(
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, UserLogin.routName);
-          },
+          onPressed:()=>  Navigator.pushReplacementNamed(
+                      context, routName),
           child: const Text(
             "تسجيل دخول",
             style: TextStyle(

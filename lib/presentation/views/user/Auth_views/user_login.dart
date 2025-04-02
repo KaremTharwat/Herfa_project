@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_user_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
@@ -13,7 +13,6 @@ import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_doyouhavean_account.dart';
 import 'package:herfa/presentation/widgets/custom_row_divider.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
-import 'package:herfa/presentation/widgets/custom_text_button.dart';
 import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 import 'package:herfa/reset_password.dart';
 
@@ -142,8 +141,8 @@ class _UserLoginState extends State<UserLogin> {
                                 isLoading = true;
                                 setState(() {});
                                 await signInEmailAndPassword(email, password);
-                                await BlocProvider.of<GetDataCubit>(context)
-                                    .getDataMethodCubit();
+                                await BlocProvider.of<GetUserDataCubit>(context)
+                                    .getUserDataMethodCubit();
                                 if (context.mounted) {
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,
@@ -183,7 +182,9 @@ class _UserLoginState extends State<UserLogin> {
                       width: 35,
                     ),
                   ),
-                 const CustomDoYouNotHaveAnAccount(routName: UserSignup.routName,)
+                  const CustomDoYouNotHaveAnAccount(
+                    routName: UserSignup.routName,
+                  )
                 ],
               ),
             ),
@@ -193,4 +194,3 @@ class _UserLoginState extends State<UserLogin> {
     );
   }
 }
-

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_user_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/general_signup.dart';
 import 'package:herfa/helper/sign_out_auth.dart';
@@ -39,11 +39,11 @@ class CustomDrawer extends StatelessWidget {
             ),
             CustomText(
                 text:
-                    "${BlocProvider.of<GetDataCubit>(context).userModel!.userName}",
+                    "${BlocProvider.of<GetUserDataCubit>(context).userModel!.userName}",
                 fontSize: 18),
             CustomText(
               text:
-                  "${BlocProvider.of<GetDataCubit>(context).userModel!.email}",
+                  "${BlocProvider.of<GetUserDataCubit>(context).userModel!.email}",
               fontSize: 18,
               color: Colors.grey,
             ),
@@ -105,10 +105,8 @@ class CustomDrawer extends StatelessWidget {
                               color: Colors.red,
                               onPressed: () async {
                                 await userSignOut();
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    GeneralSignup.routName,
-                                    (route)=>false);
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    GeneralSignup.routName, (route) => false);
                               },
                             ),
                             CustomTextButton(

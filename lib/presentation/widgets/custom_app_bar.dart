@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_user_data_cubit.dart';
 import 'package:herfa/business%20logic/states/user_state.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showIconButton;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetDataCubit, GetDataState>(
+    return BlocBuilder<GetUserDataCubit, GetDataState>(
       builder: (context, state) {
         return AppBar(
           automaticallyImplyLeading: false,

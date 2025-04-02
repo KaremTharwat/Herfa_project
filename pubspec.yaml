@@ -49,6 +49,8 @@ dependencies:
   rive: ^0.13.20
   path: ^1.9.1
   image_picker: ^1.1.2
+  supabase_flutter: ^2.8.4
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

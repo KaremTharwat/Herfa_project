@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_user_data_cubit.dart';
 import 'package:herfa/data/firebase/auth/user_auth/signupwithemailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
 import 'package:herfa/helper/validation_confirmpassword.dart';
@@ -149,8 +149,9 @@ class _UserSignupState extends State<UserSignup> {
                                     governorateName);
                                 isLoading = false;
                                 setState(() {});
-                                await BlocProvider.of<GetDataCubit>(context)
-                                    .getDataMethodCubit();
+                                if(context.mounted){
+                                await BlocProvider.of<GetUserDataCubit>(context)
+                                    .getUserDataMethodCubit();}
                                 if (context.mounted) {
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,

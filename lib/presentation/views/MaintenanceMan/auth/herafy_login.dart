@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_herafy_data.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/user_auth/singin_with_emailandpassword.dart';
 import 'package:herfa/helper/showsnackbar.dart';
@@ -19,13 +21,12 @@ class HerafyLogin extends StatefulWidget {
   State<HerafyLogin> createState() => _HerafyLoginState();
 }
 
-final GlobalKey<FormState> formkey = GlobalKey();
+class _HerafyLoginState extends State<HerafyLogin> {
+  final GlobalKey<FormState> formkey = GlobalKey();
 bool isHidden = true;
 String? email;
 String? password;
 bool isLoading = false;
-
-class _HerafyLoginState extends State<HerafyLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -137,8 +138,12 @@ class _HerafyLoginState extends State<HerafyLogin> {
                                 isLoading = true;
                                 setState(() {});
                                 await signInEmailAndPassword(email, password);
-                                await BlocProvider.of<GetDataCubit>(context)
-                                    .getDataMethodCubit();
+                                if(context.mounted)
+                                {
+                                   await BlocProvider.of<GetHerafyDataCubit>(context)
+                                    .getHerafyDataMethodCubit();
+                                }
+                               
                                 if (context.mounted) {
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,
@@ -160,7 +165,7 @@ class _HerafyLoginState extends State<HerafyLogin> {
                               } catch (e) {
                                 if (context.mounted) {
                                   showSnackBar(context, e.toString());
-                                  print(e.toString());
+                                  log(e.toString());
                                   isLoading = false;
                                   setState(() {});
                                 }

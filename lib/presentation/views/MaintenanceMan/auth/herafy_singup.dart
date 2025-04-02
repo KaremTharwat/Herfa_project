@@ -1,16 +1,21 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:herfa/business%20logic/cubits/get_herafy_data.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/firebase/auth/MaintenanceMan_auth/signup_withemailandpassword_herafy.dart';
 import 'package:herfa/helper/showsnackbar.dart';
+import 'package:herfa/helper/upload_images.dart';
 import 'package:herfa/helper/validation_confirmpassword.dart';
 import 'package:herfa/helper/validation_email_address.dart';
 import 'package:herfa/helper/validation_password.dart';
 import 'package:herfa/helper/validation_phone_number.dart';
 import 'package:herfa/helper/validation_username.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_login.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/profile_herafy.dart';
 import 'package:herfa/presentation/widgets/custom_already_have_an_account.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_drop_dowen_major.dart';
@@ -30,11 +35,13 @@ String? major;
 class _HerafySignUpState extends State<HerafySignUp> {
   bool obscureText = true;
   File? file;
+  String? base64Image;
   String? herafyName;
   String? age;
   String? email;
   String? phoneNumber;
   String? password;
+
   List<String> listOfHerafy = [
     "سباك",
     "كهربائي",
@@ -45,6 +52,7 @@ class _HerafySignUpState extends State<HerafySignUp> {
     "سيراميك"
   ];
   GlobalKey<FormState> formkey = GlobalKey();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,37 +198,58 @@ class _HerafySignUpState extends State<HerafySignUp> {
                   hintText: "تاكيد كلمة المرور",
                   validator: (value) => validationconfirmPassword(value),
                 ),
-                CustomButton(
-                  text: "انشاء حساب",
-                  onTap: () async {
-                    if (formkey.currentState!.validate()) {
-                      try {
-                        await signUpEmailAndPasswordHerafy(
-                          email,
-                          age,
-                          password,
-                          herafyName,
-                          major,
-                        );
-                      } on FirebaseAuthException catch (e) {
-                        isLoading = false;
-                        setState(() {});
-                        if (e.code == 'weak-password') {
-                          if (context.mounted) {
-                            showSnackBar(context, "كلمة المرور ضعيفة");
+                isLoading
+                    ? const CircularProgressIndicator()
+                    : CustomButton(
+                        text: "انشاء حساب",
+                        onTap: () async {
+                          if (formkey.currentState!.validate()) {
+                            try {
+                              isLoading = true;
+                              setState(() {});
+                              await uploadImage(file);
+                              await signUpEmailAndPasswordHerafy(
+                                  email, age, password, herafyName, major,imageUrl);
+                              isLoading = false;
+                              setState(() {});
+                              if (context.mounted) {
+                                await BlocProvider.of<GetHerafyDataCubit>(
+                                        context)
+                                    .getHerafyDataMethodCubit();
+                              }
+
+                              if (context.mounted) {
+                                Navigator.pushNamed(
+                                  context,
+                                  ProfileHerafy.routName,
+                                  // (route) => false,
+                                );
+                              }
+                            } on FirebaseAuthException catch (e) {
+                              isLoading = false;
+                              setState(() {});
+                              if (e.code == 'weak-password') {
+                                if (context.mounted) {
+                                  showSnackBar(context, "كلمة المرور ضعيفة");
+                                }
+                              } else if (e.code == 'email-already-in-use') {
+                                if (context.mounted) {
+                                  showSnackBar(context,
+                                      "هذا البريد الالكتروني مستخدم بالفعل");
+                                }
+                              }
+                            } catch (e) {
+                              if (context.mounted) {
+                                print(e.toString());
+                                showSnackBar(context, e.toString());
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            }
                           }
-                        } else if (e.code == 'email-already-in-use') {
-                          if (context.mounted) {
-                            showSnackBar(
-                                context, "هذا البريد الالكتروني مستخدم بالفعل");
-                          }
-                        }
-                      } catch (e) {
-                        showSnackBar(context, e.toString());
-                      }
-                    }
-                  },
-                ),
+                        },
+                      ),
                 const CustomAlreadyHaveAnAccount(
                   routName: HerafyLogin.routName,
                 )
@@ -232,13 +261,15 @@ class _HerafySignUpState extends State<HerafySignUp> {
     );
   }
 
-  tackPhoto() async {
+  Future<void> tackPhoto() async {
     XFile? imageFile =
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (imageFile != null) {
       setState(() {
         file = File(imageFile.path);
       });
+      List<int> imageBytes = await file!.readAsBytes();
+      base64Image = base64Encode(imageBytes);
     }
   }
 }

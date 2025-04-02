@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:herfa/business%20logic/cubits/change_mode_cubit.dart';
-import 'package:herfa/business%20logic/cubits/get_data_cubit.dart';
+import 'package:herfa/business%20logic/cubits/get_herafy_data.dart';
+import 'package:herfa/business%20logic/cubits/get_user_data_cubit.dart';
 import 'package:herfa/business%20logic/states/change_mode_state.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/firebase_options.dart';
@@ -17,17 +18,24 @@ import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 import 'package:herfa/presentation/views/user/home_screen.dart';
 import 'package:herfa/reset_password.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Supabase.initialize(
+    url: "https://zsrkhpqqrtgmevlcttpx.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzcmtocHFxcnRnbWV2bGN0dHB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMyMTA3MzgsImV4cCI6MjA1ODc4NjczOH0.DMizbeOeOEFubQvYXgejeOI7i2gCgARX5-OXnCanK-A",
+  );
   runApp(MultiBlocProvider(providers: [
-    BlocProvider<GetDataCubit>(
-        create: (BuildContext context) => GetDataCubit()),
+    BlocProvider<GetUserDataCubit>(
+        create: (BuildContext context) => GetUserDataCubit()),
     BlocProvider<ChangeModeCubit>(
         create: (BuildContext context) => ChangeModeCubit()),
+        BlocProvider<GetHerafyDataCubit>(
+        create: (BuildContext context) => GetHerafyDataCubit()),
   ], child: const MyApp()));
 }
 
@@ -55,7 +63,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen,
           ),
-          home: const HerafySignUp(),
+          home: const HerafyLogin(),
           routes: {
             GeneralSignup.routName: (context) => const GeneralSignup(),
             OnboardingPageview.routName: (context) => OnboardingPageview(),

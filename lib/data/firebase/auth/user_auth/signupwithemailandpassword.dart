@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> signUpEmailAndPasswordUsers(
-    email, password, userName, cityName, governorateName) async {
+    email, password, userName, cityName, governorateName,status,phoneNumber) async {
   UserCredential userCredential =
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
     email: email!,
@@ -16,5 +16,8 @@ Future<void> signUpEmailAndPasswordUsers(
     "userName": userName,
     "cityName": cityName,
     "governorateName": governorateName,
+    "Status": status,
+    "phoneNumber": phoneNumber,
+    "userID" :userCredential.user!.uid
   });
 }

@@ -37,6 +37,7 @@ GlobalKey<FormState> formkey = GlobalKey();
 bool obscureText = true;
 
 class _UserSignupState extends State<UserSignup> {
+  final String status = "user";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +147,10 @@ class _UserSignupState extends State<UserSignup> {
                                     password,
                                     userName,
                                     cityName,
-                                    governorateName);
+                                    governorateName,
+                                    status,
+                                    phoneNumber
+                                    );
                                 isLoading = false;
                                 setState(() {});
                                 if(context.mounted){

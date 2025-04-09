@@ -1,6 +1,5 @@
-import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +40,7 @@ class _HerafySignUpState extends State<HerafySignUp> {
   String? email;
   String? phoneNumber;
   String? password;
+  final String status = "MaintenanceMan";
 
   List<String> listOfHerafy = [
     "سباك",
@@ -208,8 +208,9 @@ class _HerafySignUpState extends State<HerafySignUp> {
                               isLoading = true;
                               setState(() {});
                               await uploadImage(file);
-                              await signUpEmailAndPasswordHerafy(
-                                  email, age, password, herafyName, major,imageUrl);
+                              await signUpEmailAndPasswordHerafy(email, age,
+                                  password, herafyName, major, imageUrl , phoneNumber,status);
+
                               isLoading = false;
                               setState(() {});
                               if (context.mounted) {
@@ -219,10 +220,10 @@ class _HerafySignUpState extends State<HerafySignUp> {
                               }
 
                               if (context.mounted) {
-                                Navigator.pushNamed(
+                                Navigator.pushNamedAndRemoveUntil(
                                   context,
                                   ProfileHerafy.routName,
-                                  // (route) => false,
+                                   (route) => false,
                                 );
                               }
                             } on FirebaseAuthException catch (e) {
@@ -240,7 +241,7 @@ class _HerafySignUpState extends State<HerafySignUp> {
                               }
                             } catch (e) {
                               if (context.mounted) {
-                                print(e.toString());
+                                log(e.toString());
                                 showSnackBar(context, e.toString());
                                 setState(() {
                                   isLoading = false;
@@ -263,13 +264,11 @@ class _HerafySignUpState extends State<HerafySignUp> {
 
   Future<void> tackPhoto() async {
     XFile? imageFile =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.camera,imageQuality:50);
     if (imageFile != null) {
       setState(() {
         file = File(imageFile.path);
       });
-      List<int> imageBytes = await file!.readAsBytes();
-      base64Image = base64Encode(imageBytes);
     }
   }
 }

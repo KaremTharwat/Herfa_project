@@ -6,8 +6,9 @@ import 'package:herfa/helper/get_herafy_data.dart';
 class GetHerafyDataCubit extends Cubit<GetDataState> {
   GetHerafyDataCubit() : super(InitState());
   HerafyModel? herafyModel;
+  
 
-  getHerafyDataMethodCubit() async {
+ Future getHerafyDataMethodCubit() async {
     emit(LoadingState());
     herafyModel = await getHerafyData();
     emit(LoadedState());

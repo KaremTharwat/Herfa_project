@@ -8,6 +8,8 @@ Future<void> signUpEmailAndPasswordHerafy(
   herafyName,
   major,
   imageUrl,
+  phonenumber,
+  status
 ) async {
   UserCredential userCredential =
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -23,5 +25,8 @@ Future<void> signUpEmailAndPasswordHerafy(
     "age": age,
     "major": major,
     "imageUrl": imageUrl,
+    "phoneNumber" : phonenumber,
+    "status" : status,
+    "herafyID" :userCredential.user!.uid
   });
 }

@@ -41,11 +41,13 @@ class HomeScreen extends StatelessWidget {
               crossAxisCount: 2, childAspectRatio: 1.6, mainAxisSpacing: 25),
           children: [
             CustomCategoryHerfa(
-              title: title[0],
-              image: ImagesPathApp.plumber,
-              onTap: () => Navigator.pushNamed(context, ListOfHerafy.routName,
-                  arguments: title[0]),
-            ),
+                title: title[0],
+                image: ImagesPathApp.plumber,
+                onTap: ()async {
+                  Navigator.pushNamed(context, ListOfHerafy.routName,
+                      arguments: title[0]);
+              
+                }),
             CustomCategoryHerfa(
               title: title[1],
               image: ImagesPathApp.electrical,

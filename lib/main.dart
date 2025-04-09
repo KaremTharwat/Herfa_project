@@ -13,6 +13,8 @@ import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_login.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_singup.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/categories/list_of_herafy.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/profile_herafy.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/service_request_notification.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/show_user_profile_herafy.dart';
 import 'package:herfa/presentation/views/onboarding/onboarding_pageview.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
@@ -27,14 +29,15 @@ void main() async {
   );
   await Supabase.initialize(
     url: "https://zsrkhpqqrtgmevlcttpx.supabase.co",
-    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzcmtocHFxcnRnbWV2bGN0dHB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMyMTA3MzgsImV4cCI6MjA1ODc4NjczOH0.DMizbeOeOEFubQvYXgejeOI7i2gCgARX5-OXnCanK-A",
+    anonKey:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzcmtocHFxcnRnbWV2bGN0dHB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMyMTA3MzgsImV4cCI6MjA1ODc4NjczOH0.DMizbeOeOEFubQvYXgejeOI7i2gCgARX5-OXnCanK-A",
   );
   runApp(MultiBlocProvider(providers: [
     BlocProvider<GetUserDataCubit>(
         create: (BuildContext context) => GetUserDataCubit()),
     BlocProvider<ChangeModeCubit>(
         create: (BuildContext context) => ChangeModeCubit()),
-        BlocProvider<GetHerafyDataCubit>(
+    BlocProvider<GetHerafyDataCubit>(
         create: (BuildContext context) => GetHerafyDataCubit()),
   ], child: const MyApp()));
 }
@@ -59,22 +62,24 @@ class MyApp extends StatelessWidget {
           ],
           darkTheme: BlocProvider.of<ChangeModeCubit>(context).isDark
               ? ThemeData.dark()
-              : ThemeData.light(),
-          theme: ThemeData(
-            scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen,
-          ),
-          home: const HerafyLogin(),
+              : ThemeData(
+                  scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen,
+                ),
+          home: const GeneralSignup(),
           routes: {
             GeneralSignup.routName: (context) => const GeneralSignup(),
             OnboardingPageview.routName: (context) => OnboardingPageview(),
             HomeScreen.routName: (context) => HomeScreen(),
             UserSignup.routName: (context) => const UserSignup(),
             UserLogin.routName: (context) => const UserLogin(),
-            ListOfHerafy.routName: (context) => const ListOfHerafy(),
+            ListOfHerafy.routName: (context) => ListOfHerafy(),
             ProfileHerafy.routName: (context) => const ProfileHerafy(),
             ResetPassword.routName: (context) => const ResetPassword(),
             HerafyLogin.routName: (context) => const HerafyLogin(),
             HerafySignUp.routName: (context) => const HerafySignUp(),
+            ServiceRequestNotification.routName: (context) => ServiceRequestNotification(),
+            ShowUserProfileHerafy.routName: (context) =>
+                const ShowUserProfileHerafy(),
           },
         );
       },

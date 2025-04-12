@@ -4,15 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:herfa/business%20logic/cubits/get_herafy_data.dart';
 import 'package:herfa/data/models/order/order_model.dart';
-import 'package:herfa/data/models/user_model/user_model.dart';
 import 'package:herfa/presentation/widgets/custom_app_bar.dart';
 import 'package:herfa/presentation/widgets/custom_order_work.dart';
 
 // ignore: must_be_immutable
 class ServiceRequestNotification extends StatelessWidget {
-   ServiceRequestNotification({super.key, this.userModel});
+   ServiceRequestNotification({super.key, });
   static const routName = "serviceRequestNotification";
- final UserModel? userModel;
   Stream<QuerySnapshot> order = FirebaseFirestore.instance.collection('order').snapshots();
   @override
   Widget build(BuildContext context) {
@@ -32,9 +30,6 @@ class ServiceRequestNotification extends StatelessWidget {
                    orderList
                         .add(OrderModel.fromJson(snapshot.data!.docs[i]));
                  }
-                       
-                  
-                  
                   }
                   return ListView.builder(
                     itemCount: orderList.length,

@@ -17,17 +17,3 @@ import 'package:herfa/data/models/MaintenanceMan_model/herafy_model.dart';
     return null;
   }
 }
-
-//===================================
-Future<HerafyModel?> getItemHerafyData() async {
-  DocumentSnapshot herafyDoc = await FirebaseFirestore.instance
-      .collection('herafy')
-      .doc("bv0YAXUrbxPhi3bp3h988jTp8NH3")
-      .get();
-
-  if (herafyDoc.exists && herafyDoc.data() != null) {
-    return HerafyModel.fromJson(herafyDoc.data());
-  } else {
-    return null;
-  }
-}

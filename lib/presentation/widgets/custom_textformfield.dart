@@ -9,7 +9,8 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.iconButton,
     this.textInputType,
-    this.onChanged, this.onFieldSubmitted,
+    this.onChanged,
+    this.onFieldSubmitted,
   });
   final String hintText;
   final IconButton? iconButton;
@@ -21,9 +22,9 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 6, top: 6),
       child: TextFormField(
-        onFieldSubmitted:onFieldSubmitted,
+        onFieldSubmitted: onFieldSubmitted,
         style: const TextStyle(color: ColorsApp.textColorblack),
         cursorColor: ColorsApp.textColorblack,
         onChanged: onChanged,

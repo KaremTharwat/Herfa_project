@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:herfa/business%20logic/cubits/get_herafy_data.dart';
+import 'package:herfa/business%20logic/states/user_state.dart';
 import 'package:herfa/constans.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/edite_profile.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/service_request_notification.dart';
 import 'package:herfa/presentation/widgets/custom_evaluation.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
@@ -19,14 +21,14 @@ class ProfileHerafy extends StatelessWidget {
         centerTitle: true,
         title: const CustomText(text: 'الملف الشخصي', fontSize: 20),
         leading: IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, ServiceRequestNotification.routName);
-              },
-              icon: const Icon(
-                Icons.notifications_outlined,
-                size: 36,
-              ),
-            ),
+          onPressed: () {
+            Navigator.pushNamed(context, ServiceRequestNotification.routName);
+          },
+          icon: const Icon(
+            Icons.notifications_outlined,
+            size: 36,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -42,7 +44,9 @@ class ProfileHerafy extends StatelessWidget {
               Positioned(
                 bottom: 10,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, EditeProfile.routName);
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadiusDirectional.circular(30),
@@ -84,20 +88,38 @@ class ProfileHerafy extends StatelessWidget {
             const CustomTitleCategoryProfile(
               text: "الخبرات",
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (context, index) =>const Text("fgdg"),
-              ),
+            BlocBuilder<GetHerafyDataCubit, GetDataState>(
+              builder: (context, state) {
+                return SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                    itemCount: BlocProvider.of<GetHerafyDataCubit>(context)
+                        .herafyModel!
+                        .experiences
+                        .length,
+                    itemBuilder: (context, index) => Text(
+                        "${BlocProvider.of<GetHerafyDataCubit>(context).herafyModel!.experiences[index]}"),
+                  ),
+                );
+              },
             ),
             const CustomTitleCategoryProfile(
               text: "الخدمات المتوفرة",
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) =>const Text("fgdg"),
-              ),
+            BlocBuilder<GetHerafyDataCubit, GetDataState>(
+              builder: (context, state) {
+                return SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                    itemCount: BlocProvider.of<GetHerafyDataCubit>(context)
+                        .herafyModel!
+                        .availableServices
+                        .length,
+                    itemBuilder: (context, index) => Text(
+                        "${BlocProvider.of<GetHerafyDataCubit>(context).herafyModel!.availableServices[index]}"),
+                  ),
+                );
+              },
             ),
             const Divider(
               thickness: 2,

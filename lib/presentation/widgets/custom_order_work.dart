@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:herfa/business%20logic/cubits/get_herafy_data.dart';
+import 'package:herfa/business%20logic/cubits/get_user_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/models/order/order_model.dart';
+import 'package:herfa/helper/delete_order.dart';
 import 'package:herfa/presentation/widgets/custom_text.dart';
 
 class CustomOrderWork extends StatelessWidget {
@@ -32,7 +36,7 @@ class CustomOrderWork extends StatelessWidget {
               CustomText(
                   text: "رقم الهاتف : ${orderModel!.phoneNumber}  ",
                   fontSize: 18),
-              const CustomText(text: "الدفع : نقدا عند الاستلام", fontSize: 18),
+              const CustomText(text: "الدفع : نقدا عند الاصلاح", fontSize: 18),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -48,7 +52,9 @@ class CustomOrderWork extends StatelessWidget {
                     width: 30,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: ()  {
+                         deleteOrderData(orderModel!.userID,orderModel!.herafyID ,context);
+                      },
                       style:
                           ElevatedButton.styleFrom(backgroundColor: Colors.red),
                       child: const CustomText(

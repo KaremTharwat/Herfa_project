@@ -27,6 +27,8 @@ Future<void> signUpEmailAndPasswordHerafy(
     "imageUrl": imageUrl,
     "phoneNumber" : phonenumber,
     "status" : status,
-    "herafyID" :userCredential.user!.uid
+    "herafyID" :userCredential.user!.uid,
+    "experiences": [],
+    "availableServices": [],
   });
 }

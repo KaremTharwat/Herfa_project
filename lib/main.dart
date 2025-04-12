@@ -12,10 +12,12 @@ import 'package:herfa/general_signup.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_login.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/auth/herafy_singup.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/categories/list_of_herafy.dart';
+import 'package:herfa/presentation/views/MaintenanceMan/edite_profile.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/profile_herafy.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/service_request_notification.dart';
 import 'package:herfa/presentation/views/MaintenanceMan/show_user_profile_herafy.dart';
 import 'package:herfa/presentation/views/onboarding/onboarding_pageview.dart';
+import 'package:herfa/presentation/views/splash_screen.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_login.dart';
 import 'package:herfa/presentation/views/user/Auth_views/user_signup.dart';
 import 'package:herfa/presentation/views/user/home_screen.dart';
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
               : ThemeData(
                   scaffoldBackgroundColor: ColorsApp.backgroundcolorScreen,
                 ),
-          home: const GeneralSignup(),
+          home: const SplashScreen(),
           routes: {
             GeneralSignup.routName: (context) => const GeneralSignup(),
             OnboardingPageview.routName: (context) => OnboardingPageview(),
@@ -77,6 +79,7 @@ class MyApp extends StatelessWidget {
             ResetPassword.routName: (context) => const ResetPassword(),
             HerafyLogin.routName: (context) => const HerafyLogin(),
             HerafySignUp.routName: (context) => const HerafySignUp(),
+            EditeProfile.routName: (context) =>  EditeProfile(),
             ServiceRequestNotification.routName: (context) => ServiceRequestNotification(),
             ShowUserProfileHerafy.routName: (context) =>
                 const ShowUserProfileHerafy(),

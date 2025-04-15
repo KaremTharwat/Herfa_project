@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:herfa/business%20logic/cubits/get_herafy_data.dart';
 import 'package:herfa/business%20logic/cubits/get_user_data_cubit.dart';
 import 'package:herfa/constans.dart';
 import 'package:herfa/data/models/MaintenanceMan_model/herafy_model.dart';
+import 'package:herfa/data/models/rating_model.dart';
 import 'package:herfa/helper/add_order_data.dart';
+import 'package:herfa/helper/add_rate_data.dart';
 import 'package:herfa/helper/delete_order.dart';
 import 'package:herfa/presentation/widgets/custom_button.dart';
 import 'package:herfa/presentation/widgets/custom_evaluation.dart';
@@ -12,7 +16,6 @@ import 'package:herfa/presentation/widgets/custom_text.dart';
 import 'package:herfa/presentation/widgets/custom_textformfield.dart';
 import 'package:herfa/presentation/widgets/custom_title_category_profile.dart';
 
-// ignore: must_be_immutable
 class ShowUserProfileHerafy extends StatefulWidget {
   const ShowUserProfileHerafy({
     super.key,
@@ -24,6 +27,12 @@ class ShowUserProfileHerafy extends StatefulWidget {
 
 class _ShowUserProfileHerafyState extends State<ShowUserProfileHerafy> {
   bool onTap = false;
+  double rate = 0;
+  String? evaluationText;
+  Future<void> refresh() async {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     HerafyModel? herafyModel =
@@ -43,18 +52,21 @@ class _ShowUserProfileHerafyState extends State<ShowUserProfileHerafy> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomText(text: "${herafyModel.phoneNumber}", fontSize: 14),
+                  CustomText(
+                      text: "${herafyModel.phoneNumber}", fontSize: 14),
                   const Icon(
                     Icons.phone,
                     color: ColorsApp.primaryColorAppbarAndCard,
                   ),
                 ],
               ),
-              const CustomText(
-                  text: "تقيم العملاء : 4 من 5 (200 تقييم)", fontSize: 12),
+              CustomText(
+                  text:
+                      "تقيم العملاء : ${herafyModel.numberOfResidents != 0 ? herafyModel.rate / herafyModel.numberOfResidents : 0} من 5 (${herafyModel.numberOfResidents} تقييم)",
+                  fontSize: 12),
               RatingBarIndicator(
                 itemSize: 20,
-                rating: 1,
+                rating: herafyModel.numberOfResidents != 0 ? herafyModel.rate / herafyModel.numberOfResidents : 0,
                 itemBuilder: (context, index) => const Icon(
                   Icons.star,
                   color: Colors.yellow,
@@ -87,14 +99,37 @@ class _ShowUserProfileHerafyState extends State<ShowUserProfileHerafy> {
                 color: Color.fromARGB(255, 141, 141, 141),
               ),
               const CustomTitleCategoryProfile(
-                text: "أراء العملاء",
+                text: "تقييم العملاء",
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) => const CustomEvaluation(),
-                ),
-              ),
+              FutureBuilder<QuerySnapshot>(
+                            future: FirebaseFirestore.instance
+                                .collection("rate")
+                                .get(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<RatingModel?> ratingList = [];
+                                for (int i = 0;
+                                    i < snapshot.data!.docs.length;
+                                    i++) {
+                                  if (snapshot.data!.docs[i]["herafyID"] ==
+                                      herafyModel.herafyID) {
+                                    ratingList.add(RatingModel.fromJson(
+                                        snapshot.data!.docs[i]));
+                                  }
+                                }
+                                return Expanded(
+                                  child: ListView.builder(
+                                    itemCount: ratingList.length,
+                                    itemBuilder: (context, index) =>
+                                         CustomEvaluation(
+                                          ratingModel: ratingList[index],
+                                        ),
+                                  ),
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            }),
               onTap != true
                   ? CustomButton(
                       text: "اطلب الأن",
@@ -103,7 +138,7 @@ class _ShowUserProfileHerafyState extends State<ShowUserProfileHerafy> {
                         setState(() {});
                         BlocProvider.of<GetUserDataCubit>(context)
                             .getUserDataMethodCubit();
-
+      
                         addOrderData(
                             BlocProvider.of<GetUserDataCubit>(context)
                                 .userModel!,
@@ -120,13 +155,41 @@ class _ShowUserProfileHerafyState extends State<ShowUserProfileHerafy> {
                                   Center(
                                       child: Column(
                                     children: [
-                                     const CustomTextFormField(hintText: "ادخل تقييمك الكتابي هنا"),
+                                      CustomTextFormField(
+                                          onChanged: (value) =>
+                                              evaluationText = value,
+                                          hintText:
+                                              "ادخل تقييمك الكتابي هنا"),
                                       RatingBar.builder(
-                                        itemBuilder: (context ,index)=>const Icon(Icons.star , color: Colors.yellow,),
-                                       onRatingUpdate: (value)=>print(value),),
-                                       ElevatedButton(onPressed: (){
-                                        Navigator.pop(context);
-                                       }, child:const Text("تم التقييم"))
+                                        allowHalfRating: true,
+                                        itemBuilder: (context, index) =>
+                                            const Icon(
+                                          Icons.star,
+                                          color: Colors.yellow,
+                                        ),
+                                        onRatingUpdate: (value) =>
+                                            rate = value,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            addRateData(
+                                                BlocProvider.of<
+                                                            GetUserDataCubit>(
+                                                        context)
+                                                    .userModel,
+                                                herafyModel.herafyID,
+                                                evaluationText ?? "",
+                                                rate);
+                                            addRating(
+                                                herafyModel.herafyID, rate);
+                                            BlocProvider.of<
+                                                        GetHerafyDataCubit>(
+                                                    context)
+                                                .getHerafyDataMethodCubit();
+      
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("تم التقييم"))
                                     ],
                                   ))
                                 ]),
@@ -152,4 +215,13 @@ class _ShowUserProfileHerafyState extends State<ShowUserProfileHerafy> {
       ),
     );
   }
+}
+
+Future<void> addRating(String? herafyId, double rate) async {
+  final docRef = FirebaseFirestore.instance.collection('herafy').doc(herafyId);
+
+  await docRef.update({
+    'rate': FieldValue.increment(rate),
+    'numberOfResidents': FieldValue.increment(1),
+  });
 }

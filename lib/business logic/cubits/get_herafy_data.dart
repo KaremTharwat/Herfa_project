@@ -8,9 +8,10 @@ class GetHerafyDataCubit extends Cubit<GetDataState> {
   HerafyModel? herafyModel;
   
 
- Future getHerafyDataMethodCubit() async {
+ Future<HerafyModel?> getHerafyDataMethodCubit() async {
     emit(LoadingState());
     herafyModel = await getHerafyData();
     emit(LoadedState());
+    return herafyModel;
   }
 }

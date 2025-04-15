@@ -7,9 +7,13 @@ class HerafyModel {
   final String? major;
   final String? imageUrl;
   final String? status;
+  final double rate;
+  final int numberOfResidents;
   final List experiences;
   final List availableServices;
-  HerafyModel({
+  HerafyModel( {
+    required this.status,
+    required this.numberOfResidents,
     required this.imageUrl,
     required this.major,
     required this.herafyID,
@@ -17,7 +21,7 @@ class HerafyModel {
     required this.age,
     required this.email,
     required this.phoneNumber,
-    required this.status,
+    required this.rate,
     required this.experiences,
     required this.availableServices,
   });
@@ -25,6 +29,8 @@ class HerafyModel {
   factory HerafyModel.fromJson(json) {
     return HerafyModel(
         status: json["status"],
+        numberOfResidents: json["numberOfResidents"],
+        rate: json["rate"],
         herafyName: json["herafyName"],
         imageUrl: json["imageUrl"],
         age: json["age"],

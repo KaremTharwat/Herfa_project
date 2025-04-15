@@ -30,5 +30,7 @@ Future<void> signUpEmailAndPasswordHerafy(
     "herafyID" :userCredential.user!.uid,
     "experiences": [],
     "availableServices": [],
+    "rate": 0.0,
+    "numberOfResidents": 0,
   });
 }

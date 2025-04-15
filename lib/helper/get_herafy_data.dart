@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:herfa/data/models/MaintenanceMan_model/herafy_model.dart';
 
-    getHerafyData() async {
+   Future<HerafyModel?> getHerafyData() async {
   User? herafy = FirebaseAuth.instance.currentUser;
   if (herafy == null) {
     null;

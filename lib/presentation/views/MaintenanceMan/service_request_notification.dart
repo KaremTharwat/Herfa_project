@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,27 +8,32 @@ import 'package:herfa/presentation/widgets/custom_order_work.dart';
 
 // ignore: must_be_immutable
 class ServiceRequestNotification extends StatelessWidget {
-   ServiceRequestNotification({super.key, });
+  ServiceRequestNotification({
+    super.key,
+  });
   static const routName = "serviceRequestNotification";
-  Stream<QuerySnapshot> order = FirebaseFirestore.instance.collection('order').snapshots();
+  Stream<QuerySnapshot> order =
+      FirebaseFirestore.instance.collection('order').snapshots();
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar:const CustomAppBar(
+    return Scaffold(
+      appBar: const CustomAppBar(
         title: "إشعار طلب خدمة",
       ),
       body: SafeArea(
-         child: StreamBuilder<QuerySnapshot>(
+          child: StreamBuilder<QuerySnapshot>(
               stream: order,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<OrderModel?> orderList = [];
                   for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                 if(snapshot.data!.docs[i]["herafyID"] == BlocProvider.of<GetHerafyDataCubit>(context).herafyModel!.herafyID)
-                 {
-                   orderList
-                        .add(OrderModel.fromJson(snapshot.data!.docs[i]));
-                 }
+                    if (snapshot.data!.docs[i]["herafyID"] ==
+                        BlocProvider.of<GetHerafyDataCubit>(context)
+                            .herafyModel!
+                            .herafyID) {
+                      orderList
+                          .add(OrderModel.fromJson(snapshot.data!.docs[i]));
+                    }
                   }
                   return ListView.builder(
                     itemCount: orderList.length,
@@ -38,10 +42,9 @@ class ServiceRequestNotification extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return const Center(child:CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
-              })
-      ),
+              })),
     );
   }
 }

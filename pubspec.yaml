@@ -52,6 +52,7 @@ dependencies:
   supabase_flutter: ^2.8.4
   flutter_rating_bar: ^4.0.1
   shared_preferences: ^2.5.3
+  firebase_messaging: ^15.2.5
 
 dev_dependencies:
   flutter_test:

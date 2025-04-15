@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
             UserSignup.routName: (context) => const UserSignup(),
             UserLogin.routName: (context) => const UserLogin(),
             ListOfHerafy.routName: (context) => ListOfHerafy(),
-            ProfileHerafy.routName: (context) => const ProfileHerafy(),
+            ProfileHerafy.routName: (context) =>  ProfileHerafy(),
             ResetPassword.routName: (context) => const ResetPassword(),
             HerafyLogin.routName: (context) => const HerafyLogin(),
             HerafySignUp.routName: (context) => const HerafySignUp(),

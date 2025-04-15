@@ -3,14 +3,15 @@ import 'package:herfa/constans.dart';
 
 class CustomSearchTextField extends StatelessWidget {
   const CustomSearchTextField({
-    super.key,
+    super.key, this.onChanged,
   });
-
+final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        onChanged:onChanged ,
         decoration: InputDecoration(
           hintText: "بحث",
           hintStyle:const TextStyle(fontWeight: FontWeight.bold),
